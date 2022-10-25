@@ -26,4 +26,17 @@ const renderer = new THREE.WebGLRenderer({
    canvas: document.querySelector('canvas.webgl')
 })
 renderer.setSize(sizes.width, sizes.height)
-renderer.render(scene, camera)
+
+const clock = new THREE.Clock()
+
+// Animations
+const tick = () =>{
+   const elapsedTime = clock.getElapsedTime()
+   // console.log(elapsedTime)
+   mesh.rotation.y = Math.sin(elapsedTime)
+   // Render
+   renderer.render(scene, camera)
+   window.requestAnimationFrame(tick)
+}
+
+tick()
