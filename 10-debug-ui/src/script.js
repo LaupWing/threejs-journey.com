@@ -6,6 +6,16 @@ import * as dat from "dat.gui"
 
 const gui = new dat.GUI()
 
+const parameters = {
+   color: 0xff0000,
+   spin(){
+      gsap.to(mesh.rotation, {
+         duration: 1, 
+         y: mesh.rotation.y + Math.PI * 2
+      })
+   }
+} 
+
 /**
  * Base
  */
@@ -19,11 +29,31 @@ const scene = new THREE.Scene()
  * Object
  */
 const geometry = new THREE.BoxGeometry(1, 1, 1)
-const material = new THREE.MeshBasicMaterial({ color: 0xff0000 })
+const material = new THREE.MeshBasicMaterial({ color: parameters.color })
 const mesh = new THREE.Mesh(geometry, material)
-scene.add(mesh)
-gui.add(mesh.position, "y", -3, 3, 0.01)
 
+scene.add(mesh)
+gui
+   .add(mesh.position, "y")
+   .min(-32)
+   .max(3)
+   .step(0.01)
+   .name("elevation")
+
+gui
+   .add(mesh, "visible")
+
+gui
+   .add(material, "wireframe")
+
+gui
+   .addColor(parameters, "color")
+   .onChange((value)=>{
+      material.color.set(value)
+   })
+
+gui
+   .add(parameters, "spin")
 /**
  * Sizes
  */
