@@ -22,7 +22,7 @@ const geometry = new THREE.BoxGeometry(1, 1, 1)
 const material = new THREE.MeshBasicMaterial({ color: 0xff0000 })
 const mesh = new THREE.Mesh(geometry, material)
 scene.add(mesh)
-gui.add(mes.position, "y")
+gui.add(mesh.position, "y", -3, 3, 0.01)
 
 /**
  * Sizes
