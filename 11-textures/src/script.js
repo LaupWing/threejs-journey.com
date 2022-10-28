@@ -7,15 +7,25 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
  */
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
+const loadingManager = new THREE.LoadingManager()
 
-const image = new Image()
-const texture = new THREE.Texture(image)
-
-image.onload = () =>{
-   texture.needsUpdate = true
+loadingManager.onStart = ()=>{
+   console.log("Loading started")
 }
-
-image.src = "/textures/door/color.jpg"
+loadingManager.onLoad = ()=>{
+   console.log("Loading finished")
+}
+loadingManager.onProgress = ()=>{
+   console.log("Loading progressing")
+}
+const textureLoader = new THREE.TextureLoader(loadingManager)
+const colorTexture = textureLoader.load("/textures/door/color.jpg")
+const aplhaTexture = textureLoader.load("/textures/door/alpha.jpg")
+const heightTexture = textureLoader.load("/textures/door/height.jpg")
+const normalTexture = textureLoader.load("/textures/door/normal.jpg")
+const ambientOcclusionTexture = textureLoader.load("/textures/door/ambientOcclusion.jpg")
+const metalnessTexture = textureLoader.load("/textures/door/metalness.jpg")
+const roughnessTexture = textureLoader.load("/textures/door/roughness.jpg")
 
 // Scene
 const scene = new THREE.Scene()
@@ -24,7 +34,7 @@ const scene = new THREE.Scene()
  * Object
  */
 const geometry = new THREE.BoxGeometry(1, 1, 1)
-const material = new THREE.MeshBasicMaterial({ map: texture })
+const material = new THREE.MeshBasicMaterial({ map: colorTexture })
 const mesh = new THREE.Mesh(geometry, material)
 scene.add(mesh)
 
