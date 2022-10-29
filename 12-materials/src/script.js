@@ -35,28 +35,40 @@ const gradientTexture = textureLoader.load("/textures/gradients/3.jpg")
 // material.matcap = metcapTexture
 
 const material = new THREE.MeshStandardMaterial()
-material.metalness = 0.45
-material.roughness = 0.65
-
-gui.add(material, "metalness").min(0).max(1)
-gui.add(material, "roughness").min(0).max(1)
+material.metalness = 0
+material.roughness = 1
+material.map = doorColorTexture
+material.aoMap = doorAmbientOcclusionTexture
+material.aoMapIntensity = 1
+material.displacementMap = doorHeightTexture
+material.displacementScale = 0.05
+material.metalnessMap = doorMetalnessTexture
+material.roughnessMap = doorRoughnessTexture
+material.normalMap = doorNormalTexture
+// material.normalScale.set(0.5, 0.5)
+material.alphaMap = doorAlphaTexture
+material.transparent = true
+// gui.add(material, "metalness").min(0).max(1)
+// gui.add(material, "roughness").min(0).max(1)
 
 const sphere = new THREE.Mesh(
-   new THREE.SphereGeometry(0.5, 16, 16),
+   new THREE.SphereGeometry(0.5, 64, 64),
    material
 )
 
 sphere.position.x = -1.5
 
 const plane = new THREE.Mesh(
-   new THREE.PlaneGeometry(1, 1),
+   new THREE.PlaneGeometry(1, 1, 100, 100),
    material
 )
-
+plane.geometry.setAttribute("uv2", new THREE.BufferAttribute(plane.geometry.attributes.uv.array, 2))
+sphere.geometry.setAttribute("uv2", new THREE.BufferAttribute(sphere.geometry.attributes.uv.array, 2))
 const torus = new THREE.Mesh(
-   new THREE.TorusGeometry(0.3, 0.2, 15, 32),
+   new THREE.TorusGeometry(0.3, 0.2, 64, 128),
    material
 )
+torus.geometry.setAttribute("uv2", new THREE.BufferAttribute(torus.geometry.attributes.uv.array, 2))
 
 torus.position.x = 1.5 
 
