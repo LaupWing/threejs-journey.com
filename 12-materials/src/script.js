@@ -1,7 +1,10 @@
 import './style.css'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+import GUI from "lil-gui"
 
+
+const gui = new GUI()
 /**
  * Base
  */
@@ -20,14 +23,23 @@ const doorHeightTexture = textureLoader.load("/textures/door/height.jpg")
 const doorNormalTexture = textureLoader.load("/textures/door/normal.jpg")
 const doorMetalnessTexture = textureLoader.load("/textures/door/metalness.jpg")
 const doorRoughnessTexture = textureLoader.load("/textures/door/roughness.jpg")
-const metcapTexture = textureLoader.load("/textures/matcaps/1.png")
+const metcapTexture = textureLoader.load("/textures/matcaps/3.png")
 const gradientTexture = textureLoader.load("/textures/gradients/3.jpg")
 
-const material = new THREE.MeshBasicMaterial()
+// const material = new THREE.MeshLambertMaterial()
 // material.map = doorColorTexture
 // material.color = new THREE.Color(0x00ff00)
-material.transparent = true
-material.alphaMap = doorAlphaTexture
+// material.transparent = true
+// material.flatShading = true
+// material.alphaMap = doorAlphaTexture
+// material.matcap = metcapTexture
+
+const material = new THREE.MeshStandardMaterial()
+material.metalness = 0.45
+material.roughness = 0.65
+
+gui.add(material, "metalness").min(0).max(1)
+gui.add(material, "roughness").min(0).max(1)
 
 const sphere = new THREE.Mesh(
    new THREE.SphereGeometry(0.5, 16, 16),
@@ -49,6 +61,16 @@ const torus = new THREE.Mesh(
 torus.position.x = 1.5 
 
 scene.add(sphere, plane, torus)
+
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.5)
+scene.add(ambientLight)
+
+const pointLight = new THREE.PointLight(0xffffff, 0.5)
+pointLight.position.x = 2
+pointLight.position.y = 3
+pointLight.position.z = 4
+scene.add(pointLight)
+
 
 /**
  * Sizes
