@@ -15,6 +15,7 @@ const canvas = document.querySelector('canvas.webgl')
 const scene = new THREE.Scene()
 
 const textureLoader = new THREE.TextureLoader()
+const cubeTextureLoader = new THREE.CubeTextureLoader()
 
 const doorColorTexture = textureLoader.load("/textures/door/color.jpg")
 const doorAlphaTexture = textureLoader.load("/textures/door/alpha.jpg")
@@ -25,6 +26,15 @@ const doorMetalnessTexture = textureLoader.load("/textures/door/metalness.jpg")
 const doorRoughnessTexture = textureLoader.load("/textures/door/roughness.jpg")
 const metcapTexture = textureLoader.load("/textures/matcaps/3.png")
 const gradientTexture = textureLoader.load("/textures/gradients/3.jpg")
+
+const environmentTexture = cubeTextureLoader.load([
+   "/textures/environmentMaps/0/px.jpg",
+   "/textures/environmentMaps/0/nx.jpg",
+   "/textures/environmentMaps/0/py.jpg",
+   "/textures/environmentMaps/0/ny.jpg",
+   "/textures/environmentMaps/0/pz.jpg",
+   "/textures/environmentMaps/0/nz.jpg",
+])
 
 // const material = new THREE.MeshLambertMaterial()
 // material.map = doorColorTexture
@@ -54,6 +64,7 @@ const gradientTexture = textureLoader.load("/textures/gradients/3.jpg")
 const material = new THREE.MeshStandardMaterial()
 material.metalness = 0.7
 material.roughness = 0.2
+material.envMap = environmentTexture
 gui.add(material, "metalness").min(0).max(1)
 gui.add(material, "roughness").min(0).max(1)
 
