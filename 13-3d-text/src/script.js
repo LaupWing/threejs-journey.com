@@ -11,10 +11,11 @@ const canvas = document.querySelector('canvas.webgl')
 
 const scene = new THREE.Scene()
 
-const axesHelper = new THREE.AxesHelper()
-scene.add(axesHelper)
+// const axesHelper = new THREE.AxesHelper()
+// scene.add(axesHelper)
 
 const textureLoader = new THREE.TextureLoader()
+const matcapTexture = textureLoader.load("/textures/matcaps/1.png")
 
 const fontLoader = new FontLoader()
 fontLoader.load(
@@ -32,18 +33,19 @@ fontLoader.load(
             bevelThickness: 0.03,
             bevelSize: 0.02,
             bevelOffset: 0,
-            bevelSegments: 3
+            bevelSegments: 5
          }
       )
-      textGeomtry.computeBoundingBox()
-      textGeomtry.translate(
-         - textGeomtry.boundingBox.max.x * 0.5,
-         - textGeomtry.boundingBox.max.y * 0.5,
-         - textGeomtry.boundingBox.max.z * 0.5,
-      )
-      
-      const textMaterial = new THREE.MeshBasicMaterial({
-         wireframe: true
+      // textGeomtry.computeBoundingBox()
+      // textGeomtry.translate(
+      //    - textGeomtry.boundingBox.max.x * 0.5,
+      //    - textGeomtry.boundingBox.max.y * 0.5,
+      //    - textGeomtry.boundingBox.max.z * 0.5,
+      // )
+      textGeomtry.center()
+
+      const textMaterial = new THREE.MeshMatcapMaterial({
+         matcap: matcapTexture
       })
       const text = new THREE.Mesh(textGeomtry, textMaterial)
       scene.add(text)
