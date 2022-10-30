@@ -34,22 +34,28 @@ const gradientTexture = textureLoader.load("/textures/gradients/3.jpg")
 // material.alphaMap = doorAlphaTexture
 // material.matcap = metcapTexture
 
-const material = new THREE.MeshStandardMaterial()
-material.metalness = 0
-material.roughness = 1
-material.map = doorColorTexture
-material.aoMap = doorAmbientOcclusionTexture
-material.aoMapIntensity = 1
-material.displacementMap = doorHeightTexture
-material.displacementScale = 0.05
-material.metalnessMap = doorMetalnessTexture
-material.roughnessMap = doorRoughnessTexture
-material.normalMap = doorNormalTexture
+// const material = new THREE.MeshStandardMaterial()
+// material.metalness = 0
+// material.roughness = 1
+// material.map = doorColorTexture
+// material.aoMap = doorAmbientOcclusionTexture
+// material.aoMapIntensity = 1
+// material.displacementMap = doorHeightTexture
+// material.displacementScale = 0.05
+// material.metalnessMap = doorMetalnessTexture
+// material.roughnessMap = doorRoughnessTexture
+// material.normalMap = doorNormalTexture
 // material.normalScale.set(0.5, 0.5)
-material.alphaMap = doorAlphaTexture
-material.transparent = true
-// gui.add(material, "metalness").min(0).max(1)
-// gui.add(material, "roughness").min(0).max(1)
+// material.alphaMap = doorAlphaTexture
+// material.transparent = true
+// material.alphaMap = doorAlphaTexture
+
+
+const material = new THREE.MeshStandardMaterial()
+material.metalness = 0.7
+material.roughness = 0.2
+gui.add(material, "metalness").min(0).max(1)
+gui.add(material, "roughness").min(0).max(1)
 
 const sphere = new THREE.Mesh(
    new THREE.SphereGeometry(0.5, 64, 64),
