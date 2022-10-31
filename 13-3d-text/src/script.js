@@ -49,6 +49,8 @@ fontLoader.load(
       })
       const text = new THREE.Mesh(textGeomtry, textMaterial)
       scene.add(text)
+
+      new Array(100).forEach(_=>{console.log("test")})
    }
 )
 
