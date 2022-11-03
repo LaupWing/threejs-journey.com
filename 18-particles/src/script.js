@@ -39,11 +39,18 @@ const particlesMaterial = new THREE.PointsMaterial({
 })
 particlesMaterial.color = new THREE.Color("pink")
 particlesMaterial.transparent = true
-particlesMaterial.alphaTest = 0.001
+// particlesMaterial.alphaTest = 0.001
+particlesMaterial.depthTest = true
 particlesMaterial.alphaMap = particleTexture
 
 const particles = new THREE.Points(particlesGeometry, particlesMaterial)
 scene.add(particles)
+
+const cube = new THREE.Mesh(
+   new THREE.BoxGeometry(),
+   new THREE.MeshBasicMaterial()
+)
+scene.add(cube)
 
 /**
  * Sizes
