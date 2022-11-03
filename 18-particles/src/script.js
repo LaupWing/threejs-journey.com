@@ -39,6 +39,7 @@ const particlesMaterial = new THREE.PointsMaterial({
 })
 particlesMaterial.color = new THREE.Color("pink")
 particlesMaterial.transparent = true
+particlesMaterial.alphaTest = 0.001
 particlesMaterial.alphaMap = particleTexture
 
 const particles = new THREE.Points(particlesGeometry, particlesMaterial)
