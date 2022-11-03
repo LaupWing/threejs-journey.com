@@ -40,7 +40,8 @@ const particlesMaterial = new THREE.PointsMaterial({
 particlesMaterial.color = new THREE.Color("pink")
 particlesMaterial.transparent = true
 // particlesMaterial.alphaTest = 0.001
-particlesMaterial.depthTest = true
+// particlesMaterial.depthTest = true
+// particlesMaterial.depthWrite = false
 particlesMaterial.alphaMap = particleTexture
 
 const particles = new THREE.Points(particlesGeometry, particlesMaterial)
