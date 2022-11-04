@@ -15,11 +15,16 @@ const canvas = document.querySelector('canvas.webgl')
 // Scene
 const scene = new THREE.Scene()
 
-const paramaters = {}
-paramaters.count = 1000
-paramaters.size = 0.02
-paramaters.radius = 5
-paramaters.branches = 3
+const parameters = {}
+parameters.count = 1000
+parameters.size = 0.02
+parameters.radius = 5
+parameters.branches = 3
+parameters.spin = 1
+parameters.randomness = 0.2
+parameters.randomnessPower = 3
+parameters.insideColor = "#ff6030"
+parameters.outsideColor = "#1b3984"
 
 let geometry = null
 let material = null
@@ -27,7 +32,11 @@ let points = null
 
 
 const generateGalaxy = () => {
-   const positions = new Float32Array(paramaters.count * 3)
+   const positions = new Float32Array(parameters.count * 3)
+   const colors = new Float32Array(parameters.count * 3)
+
+   const colorInside = new THREE.Color(parameters.insideColor)
+   const colorOutside = new THREE.Color(parameters.outsideColor)
 
    // Destroy old galaxy
    if (points !== null) {
@@ -37,26 +46,43 @@ const generateGalaxy = () => {
    }
 
    geometry = new THREE.BufferGeometry()
-   for (let i = 0; i < paramaters.count; i++) {
+   for (let i = 0; i < parameters.count; i++) {
       const i3 = i * 3
 
-      const radius = Math.random() * paramaters.radius
-      const branchAngle = (i % paramaters.branches) / paramaters.branches * Math.PI * 2
+      const radius = Math.random() * parameters.radius
+      const spinAngle = radius * parameters.spin
+      const branchAngle = (i % parameters.branches) / parameters.branches * Math.PI * 2
 
-      positions[i3] = Math.cos(branchAngle) * radius
-      positions[i3 + 1] = 0
-      positions[i3 + 2] = Math.sin(branchAngle) * radius
+      const randomX = Math.pow(Math.random(), parameters.randomnessPower) * (Math.random() < 0.5 ? 1 : -1) * parameters.randomness * radius
+      const randomY = Math.pow(Math.random(), parameters.randomnessPower) * (Math.random() < 0.5 ? 1 : -1) * parameters.randomness * radius
+      const randomZ = Math.pow(Math.random(), parameters.randomnessPower) * (Math.random() < 0.5 ? 1 : -1) * parameters.randomness * radius
+
+      positions[i3] = Math.cos(branchAngle + spinAngle) * radius + randomX
+      positions[i3 + 1] = 0 + randomY
+      positions[i3 + 2] = Math.sin(branchAngle + spinAngle) * radius + randomZ
+
+      // Color
+      const mixedColor = colorInside.clone()
+      mixedColor.lerp(colorOutside, radius / parameters.radius)
+      colors[i3] = mixedColor.r
+      colors[i3 + 1] = mixedColor.g
+      colors[i3 + 2] = mixedColor.b
    }
    geometry.setAttribute(
       "position",
       new THREE.BufferAttribute(positions, 3)
    )
+   geometry.setAttribute(
+      "color",
+      new THREE.BufferAttribute(colors, 3)
+   )
    // Material
    material = new THREE.PointsMaterial({
-      size: paramaters.size,
+      size: parameters.size,
       sizeAttenuation: true,
       depthWrite: false,
-      blending: THREE.AdditiveBlending
+      blending: THREE.AdditiveBlending,
+      vertexColors: true
    })
 
    points = new THREE.Points(geometry, material)
@@ -64,10 +90,15 @@ const generateGalaxy = () => {
 }
 generateGalaxy()
 
-gui.add(paramaters, "count").min(100).max(100000).step(10).onFinishChange(generateGalaxy)
-gui.add(paramaters, "radius").min(0.001).max(20).step(0.001).onFinishChange(generateGalaxy)
-gui.add(paramaters, "branches").min(2).max(20).step(1).onFinishChange(generateGalaxy)
-gui.add(paramaters, "size").min(0.001).max(0.1).step(0.001).onFinishChange(generateGalaxy)
+gui.add(parameters, "count").min(100).max(100000).step(10).onFinishChange(generateGalaxy)
+gui.add(parameters, "radius").min(0.001).max(20).step(0.001).onFinishChange(generateGalaxy)
+gui.add(parameters, "branches").min(2).max(20).step(1).onFinishChange(generateGalaxy)
+gui.add(parameters, "size").min(0.001).max(0.1).step(0.001).onFinishChange(generateGalaxy)
+gui.add(parameters, "spin").min(-5).max(5).step(0.001).onFinishChange(generateGalaxy)
+gui.add(parameters, "randomness").min(0).max(2).step(0.001).onFinishChange(generateGalaxy)
+gui.add(parameters, "randomnessPower").min(1).max(10).step(0.001).onFinishChange(generateGalaxy)
+gui.addColor(parameters, "insideColor").onFinishChange(generateGalaxy)
+gui.addColor(parameters, "outsideColor").onFinishChange(generateGalaxy)
 
 
 /**
