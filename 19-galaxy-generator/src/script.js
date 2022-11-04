@@ -7,7 +7,7 @@ import * as dat from 'lil-gui'
  * Base
  */
 // Debug
-const gui = new dat.GUI()
+const gui = new dat.GUI({ width: 360 })
 
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
@@ -18,6 +18,7 @@ const scene = new THREE.Scene()
 const paramaters = {}
 paramaters.count = 1000
 paramaters.size = 0.02
+
 
 const generateGalaxy = () => {
    const geometry = new THREE.BufferGeometry()
@@ -42,10 +43,15 @@ const generateGalaxy = () => {
       blending: THREE.AdditiveBlending
    })
 
-
+   const points = new THREE.Points(geometry, material)
+   scene.add(points)
 }
-
 generateGalaxy()
+
+gui.add(paramaters, "count").min(100).max(100000).step(10).onFinishChange(generateGalaxy)
+gui.add(paramaters, "size").min(0.001).max(0.1).step(0.001).onFinishChange(generateGalaxy)
+
+
 /**
  * Sizes
  */
