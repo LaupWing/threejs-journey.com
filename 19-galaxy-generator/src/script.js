@@ -17,20 +17,35 @@ const scene = new THREE.Scene()
 
 const paramaters = {}
 paramaters.count = 1000
+paramaters.size = 0.02
 
-const generateGalaxy = () =>{
+const generateGalaxy = () => {
    const geometry = new THREE.BufferGeometry()
    const positions = new Float32Array(paramaters.count * 3)
 
-   for(let i = 0; i < paramaters.count; i ++){
+   for (let i = 0; i < paramaters.count; i++) {
       const i3 = i * 3
 
       positions[i3] = (Math.random() - 0.5) * 3
       positions[i3 + 1] = (Math.random() - 0.5) * 3
       positions[i3 + 2] = (Math.random() - 0.5) * 3
    }
+   geometry.setAttribute(
+      "position",
+      new THREE.BufferAttribute(positions, 3)
+   )
+   // Material
+   const material = new THREE.PointsMaterial({
+      size: paramaters.size,
+      sizeAttenuation: true,
+      depthWrite: false,
+      blending: THREE.AdditiveBlending
+   })
+
+
 }
 
+generateGalaxy()
 /**
  * Sizes
  */
