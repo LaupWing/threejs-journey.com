@@ -19,11 +19,22 @@ const paramaters = {}
 paramaters.count = 1000
 paramaters.size = 0.02
 
+let geometry = null
+let material = null
+let points = null
+
 
 const generateGalaxy = () => {
-   const geometry = new THREE.BufferGeometry()
    const positions = new Float32Array(paramaters.count * 3)
 
+   // Destroy old galaxy
+   if (points !== null) {
+      geometry.dispose()
+      material.dispose()
+      scene.remove(points)
+   }
+
+   geometry = new THREE.BufferGeometry()
    for (let i = 0; i < paramaters.count; i++) {
       const i3 = i * 3
 
@@ -36,14 +47,14 @@ const generateGalaxy = () => {
       new THREE.BufferAttribute(positions, 3)
    )
    // Material
-   const material = new THREE.PointsMaterial({
+   material = new THREE.PointsMaterial({
       size: paramaters.size,
       sizeAttenuation: true,
       depthWrite: false,
       blending: THREE.AdditiveBlending
    })
 
-   const points = new THREE.Points(geometry, material)
+   points = new THREE.Points(geometry, material)
    scene.add(points)
 }
 generateGalaxy()
