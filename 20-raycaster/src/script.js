@@ -68,6 +68,13 @@ window.addEventListener("mousemove", (_event) => {
    mouse.y = -(_event.clientY / sizes.height) * 2 + 1
 })
 
+window.addEventListener("click", () => {
+   if (currentIntersect) {
+      if (currentIntersect.object === object1) {
+         console.log("Clicked on the sphere")
+      }
+   }
+})
 /**
  * Camera
  */
@@ -94,6 +101,8 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
  */
 const clock = new THREE.Clock()
 
+let currentIntersect = null
+
 const tick = () => {
    const elapsedTime = clock.getElapsedTime()
 
@@ -119,6 +128,15 @@ const tick = () => {
       intersect.object.material.color.set("#0000ff")
    }
 
+   if (intersects.length) {
+      currentIntersect = intersects[0]
+      if (!currentIntersect) {
+         console.log("Something being hovered")
+      }
+   } else {
+      currentIntersect = null
+      console.log("Nothing being hovered")
+   }
 
    // Update controls
    controls.update()
