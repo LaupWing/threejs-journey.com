@@ -62,6 +62,12 @@ window.addEventListener('resize', () => {
    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 })
 
+const mouse = new THREE.Vector2()
+window.addEventListener("mousemove", (_event) => {
+   mouse.x = _event.clientX / sizes.width * 2 - 1
+   mouse.y = -(_event.clientY / sizes.height) * 2 + 1
+})
+
 /**
  * Camera
  */
@@ -95,11 +101,13 @@ const tick = () => {
    object2.position.y = Math.sin(elapsedTime * 0.8) * 1.5
    object3.position.y = Math.sin(elapsedTime * 1.4) * 1.5
 
-   const rayOrigin = new THREE.Vector3(-3, 0, 0)
-   const rayDirection = new THREE.Vector3(1, 0, 0)
-   rayDirection.normalize()
+   raycaster.setFromCamera(mouse, camera)
 
-   raycaster.set(rayOrigin, rayDirection)
+   // const rayOrigin = new THREE.Vector3(-3, 0, 0)
+   // const rayDirection = new THREE.Vector3(1, 0, 0)
+   // rayDirection.normalize()
+
+   // raycaster.set(rayOrigin, rayDirection)
 
    const objectsToTest = [object1, object2, object3]
    const intersects = raycaster.intersectObjects(objectsToTest)
@@ -110,6 +118,7 @@ const tick = () => {
    for (const intersect of intersects) {
       intersect.object.material.color.set("#0000ff")
    }
+
 
    // Update controls
    controls.update()
