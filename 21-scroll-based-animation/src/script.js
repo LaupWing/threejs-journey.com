@@ -128,17 +128,20 @@ let scrollY = window.scrollY
  * Animate
  */
 const clock = new THREE.Clock()
+let previousTime = 0
 
 const tick = () => {
    const elapsedTime = clock.getElapsedTime()
+   const deltaTime = elapsedTime - previousTime
+   previousTime = elapsedTime
 
    camera.position.y = -((scrollY / sizes.height) * objectsDistance)
 
-   const parallaxY = -cursor.y
-   const parallaxX = cursor.x
+   const parallaxY = -cursor.y * 0.5
+   const parallaxX = cursor.x * 0.5
 
-   cameraGroup.position.x = parallaxX
-   cameraGroup.position.y = parallaxY
+   cameraGroup.position.x += (parallaxX - cameraGroup.position.x) * 5 * deltaTime
+   cameraGroup.position.y += (parallaxY - cameraGroup.position.y) * 5 * deltaTime
 
    for (const mesh of sectionMeshes) {
       mesh.rotation.x = elapsedTime * 0.1
