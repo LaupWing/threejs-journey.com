@@ -84,7 +84,7 @@ window.addEventListener('resize', () => {
 })
 
 window.addEventListener('scroll', () => {
-   scrollY = -scrollY
+   scrollY = window.scrollY
 
 })
 
@@ -116,7 +116,7 @@ const clock = new THREE.Clock()
 const tick = () => {
    const elapsedTime = clock.getElapsedTime()
 
-   camera.position.y = -scrollY
+   camera.position.y = -((scrollY / sizes.height) * objectsDistance)
 
    for (const mesh of sectionMeshes) {
       mesh.rotation.x = elapsedTime * 0.1
