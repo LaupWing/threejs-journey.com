@@ -83,6 +83,11 @@ window.addEventListener('resize', () => {
    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 })
 
+window.addEventListener('scroll', () => {
+   scrollY = -scrollY
+
+})
+
 /**
  * Camera
  */
@@ -101,6 +106,8 @@ const renderer = new THREE.WebGLRenderer({
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
+let scrollY = window.scrollY
+
 /**
  * Animate
  */
@@ -108,6 +115,8 @@ const clock = new THREE.Clock()
 
 const tick = () => {
    const elapsedTime = clock.getElapsedTime()
+
+   camera.position.y = -scrollY
 
    for (const mesh of sectionMeshes) {
       mesh.rotation.x = elapsedTime * 0.1
