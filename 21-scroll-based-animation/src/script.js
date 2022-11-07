@@ -13,6 +13,9 @@ const parameters = {
 
 gui
    .addColor(parameters, 'materialColor')
+   .onChange(() => {
+      material.color.set(parameters.color)
+   })
 
 /**
  * Base
@@ -23,12 +26,17 @@ const canvas = document.querySelector('canvas.webgl')
 // Scene
 const scene = new THREE.Scene()
 
+const textureLoader = new THREE.TextureLoader()
+const gradientTexture = textureLoader.load("textures/gradient/3.jpg")
+
+
 const material = new THREE.MeshToonMaterial({
-   color: parameters.materialColor
+   color: parameters.materialColor,
+   gradientMap: gradientTexture
 })
 const mesh = new THREE.Mesh(
    new THREE.TorusGeometry(1, 0.4, 16, 60),
-   material
+   material,
 )
 const mesh2 = new THREE.Mesh(
    new THREE.ConeGeometry(1, 2, 32),
