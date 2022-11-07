@@ -27,7 +27,7 @@ const canvas = document.querySelector('canvas.webgl')
 const scene = new THREE.Scene()
 
 const textureLoader = new THREE.TextureLoader()
-const gradientTexture = textureLoader.load("textures/gradient/3.jpg")
+const gradientTexture = textureLoader.load("textures/gradients/3.jpg")
 gradientTexture.magFilter = THREE.NearestFilter
 
 
@@ -35,6 +35,8 @@ const material = new THREE.MeshToonMaterial({
    color: parameters.materialColor,
    gradientMap: gradientTexture
 })
+
+const objectsDistance = 2
 const mesh = new THREE.Mesh(
    new THREE.TorusGeometry(1, 0.4, 16, 60),
    material,
@@ -48,9 +50,13 @@ const mesh3 = new THREE.Mesh(
    material
 )
 
+mesh.position.y = -objectsDistance * 0
+mesh2.position.y = -objectsDistance * 1
+mesh3.position.y = -objectsDistance * 2
+
 scene.add(mesh, mesh2, mesh3)
 const directionalLight = new THREE.DirectionalLight("#ffffff", 1)
-directionalLight.set(1, 1, 0)
+directionalLight.position.set(1, 1, 0)
 scene.add(directionalLight)
 
 /**
