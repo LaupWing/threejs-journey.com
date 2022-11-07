@@ -40,6 +40,9 @@ const mesh3 = new THREE.Mesh(
 )
 
 scene.add(mesh, mesh2, mesh3)
+const directionalLight = new THREE.DirectionalLight("#ffffff", 1)
+directionalLight.set(1, 1, 0)
+scene.add(directionalLight)
 
 /**
  * Sizes
