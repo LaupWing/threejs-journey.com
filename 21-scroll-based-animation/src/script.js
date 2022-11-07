@@ -37,7 +37,7 @@ const material = new THREE.MeshToonMaterial({
 })
 
 const objectsDistance = 4
-const mesh = new THREE.Mesh(
+const mesh1 = new THREE.Mesh(
    new THREE.TorusGeometry(1, 0.4, 16, 60),
    material,
 )
@@ -50,12 +50,16 @@ const mesh3 = new THREE.Mesh(
    material
 )
 
-mesh.position.y = -objectsDistance * 0
+mesh1.position.y = -objectsDistance * 0
 mesh2.position.y = -objectsDistance * 1
 mesh3.position.y = -objectsDistance * 2
 
-scene.add(mesh, mesh2, mesh3)
-const sectionMeshes = [mesh, mesh2, mesh3]
+mesh1.position.x = 2
+mesh2.position.x = -2
+mesh3.position.x = 2
+
+scene.add(mesh1, mesh2, mesh3)
+const sectionMeshes = [mesh1, mesh2, mesh3]
 
 const directionalLight = new THREE.DirectionalLight("#ffffff", 1)
 directionalLight.position.set(1, 1, 0)
@@ -88,6 +92,15 @@ window.addEventListener('scroll', () => {
 
 })
 
+const cursor = {}
+cursor.x = 0
+cursor.y = 0
+
+window.addEventListener("mousemove", (event) => {
+   cursor.x = event.clientX / sizes.width - 0.5
+   cursor.y = event.clientY / sizes.height - 0.5
+})
+
 /**
  * Camera
  */
@@ -117,6 +130,12 @@ const tick = () => {
    const elapsedTime = clock.getElapsedTime()
 
    camera.position.y = -((scrollY / sizes.height) * objectsDistance)
+
+   const parallaxY = -cursor.y
+   const parallaxX = cursor.x
+
+   camera.position.x = parallaxX
+   camera.position.y = parallaxY
 
    for (const mesh of sectionMeshes) {
       mesh.rotation.x = elapsedTime * 0.1
