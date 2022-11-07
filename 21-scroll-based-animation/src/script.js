@@ -105,9 +105,12 @@ window.addEventListener("mousemove", (event) => {
  * Camera
  */
 // Base camera
+const cameraGroup = new THREE.Group()
+scene.add(cameraGroup)
+
 const camera = new THREE.PerspectiveCamera(35, sizes.width / sizes.height, 0.1, 100)
 camera.position.z = 6
-scene.add(camera)
+cameraGroup.add(camera)
 
 /**
  * Renderer
@@ -134,8 +137,8 @@ const tick = () => {
    const parallaxY = -cursor.y
    const parallaxX = cursor.x
 
-   camera.position.x = parallaxX
-   camera.position.y = parallaxY
+   cameraGroup.position.x = parallaxX
+   cameraGroup.position.y = parallaxY
 
    for (const mesh of sectionMeshes) {
       mesh.rotation.x = elapsedTime * 0.1
