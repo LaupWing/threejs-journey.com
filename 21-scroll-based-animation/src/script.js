@@ -15,6 +15,7 @@ gui
    .addColor(parameters, 'materialColor')
    .onChange(() => {
       material.color.set(parameters.color)
+      particlesMaterial.color.set(parameters.materialColor)
    })
 
 /**
@@ -110,7 +111,11 @@ window.addEventListener('resize', () => {
 
 window.addEventListener('scroll', () => {
    scrollY = window.scrollY
+   const newSection = Math.round(scrollY / sizes.height)
 
+   if (newSection != currentSection) {
+      currentSection = newSection
+   }
 })
 
 const cursor = {}
@@ -144,6 +149,7 @@ renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
 let scrollY = window.scrollY
+let currentSection = 0
 
 /**
  * Animate
