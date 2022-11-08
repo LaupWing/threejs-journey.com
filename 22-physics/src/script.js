@@ -9,6 +9,19 @@ import CANNON from "cannon"
  * Debug
  */
 const gui = new dat.GUI()
+const debugObject = {}
+
+debugObject.createSphere = () => {
+   createSphere(
+      Math.random() * 0.5,
+      {
+         x: (Math.random() - 0.5) * 3,
+         y: 3,
+         z: (Math.random() - 0.5) * 3
+      }
+   )
+}
+gui.add(debugObject, "createSphere")
 
 /**
  * Base
@@ -142,6 +155,8 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
 let oldElapsedTime = 0
 
+const objectsToUpdate = []
+
 // Utils
 const createSphere = (radius, position) => {
    const mesh = new THREE.Mesh(
@@ -167,6 +182,11 @@ const createSphere = (radius, position) => {
 
    body.position.copy(position)
    world.addBody(body)
+
+   objectsToUpdate.push({
+      body,
+      mesh
+   })
 }
 
 createSphere(0.5, { x: 0, y: 3, z: 0 })
@@ -184,6 +204,9 @@ const tick = () => {
 
    world.step(1 / 60, deltaTime, 3)
 
+   for (const object of objectsToUpdate) {
+      object.mesh.position.copy(object.body.position)
+   }
    // Update controls
    controls.update()
 
