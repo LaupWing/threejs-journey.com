@@ -37,6 +37,15 @@ const environmentMapTexture = cubeTextureLoader.load([
 const world = new CANNON.World()
 world.gravity.set(0, -9.82, 0)
 
+const sphereShape = new CANNON.Sphere(0.5)
+const sphereBody = new CANNON.Body({
+   mass: 1,
+   position: new CANNON.Vec3(0, 3, 0),
+   shape: sphereShape
+})
+
+world.addBody(sphereBody)
+
 /**
  * Test sphere
  */
@@ -132,6 +141,8 @@ renderer.shadowMap.type = THREE.PCFSoftShadowMap
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
+let oldElapsedTime = 0
+
 /**
  * Animate
  */
@@ -139,6 +150,9 @@ const clock = new THREE.Clock()
 
 const tick = () => {
    const elapsedTime = clock.getElapsedTime()
+   const deltaTime = elapsedTime - oldElapsedTime
+   oldElapsedTime = elapsedTime
+   // world.step(1/60, oldElapsedTime, 3)
 
    // Update controls
    controls.update()
