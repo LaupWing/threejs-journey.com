@@ -50,12 +50,6 @@ const defaultContactMaterial = new CANNON.ContactMaterial(
 world.addContactMaterial(defaultContactMaterial)
 world.defaultContactMaterial = defaultContactMaterial
 
-const sphereShape = new CANNON.Sphere(0.5)
-const sphereBody = new CANNON.Body({
-   mass: 1,
-   position: new CANNON.Vec3(0, 3, 0),
-   shape: sphereShape
-})
 
 const floorShape = new CANNON.Plane()
 const floorBody = new CANNON.Body()
@@ -63,27 +57,9 @@ floorBody.mass = 0
 floorBody.addShape(floorShape)
 floorBody.quaternion.setFromAxisAngle(new CANNON.Vec3(-1, 0, 0), Math.PI * 0.5)
 
-sphereBody.applyLocalForce(new CANNON.Vec3(150, 0, 0), new CANNON.Vec3(0, 0, 0))
 
 world.addBody(floorBody)
 
-world.addBody(sphereBody)
-
-/**
- * Test sphere
- */
-const sphere = new THREE.Mesh(
-   new THREE.SphereGeometry(0.5, 32, 32),
-   new THREE.MeshStandardMaterial({
-      metalness: 0.3,
-      roughness: 0.4,
-      envMap: environmentMapTexture,
-      envMapIntensity: 0.5
-   })
-)
-sphere.castShadow = true
-sphere.position.y = 0.5
-scene.add(sphere)
 
 /**
  * Floor
@@ -166,6 +142,11 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
 let oldElapsedTime = 0
 
+// Utils
+const createSphere = (radius, position) => {
+
+}
+
 /**
  * Animate
  */
@@ -176,15 +157,8 @@ const tick = () => {
    const deltaTime = elapsedTime - oldElapsedTime
    oldElapsedTime = elapsedTime
 
-   sphereBody.applyForce(new CANNON.Vec3(-0.1, 0, 0), sphereBody.position)
 
    world.step(1 / 60, deltaTime, 3)
-
-   sphere.position.copy(sphereBody.position)
-
-   // sphere.position.x = sphere.position.x
-   // sphere.position.y = sphere.position.y
-   // sphere.position.z = sphere.position.z
 
    // Update controls
    controls.update()
