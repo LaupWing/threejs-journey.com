@@ -157,16 +157,16 @@ let oldElapsedTime = 0
 
 const objectsToUpdate = []
 
+const sphereGeometry = new THREE.SphereGeometry(radius, 20, 20)
+const sphereMaterial = new THREE.MeshStandardMaterial({
+   metalness: 0.3,
+   roughness: 0.4,
+   envMap: environmentMapTexture
+})
+
 // Utils
 const createSphere = (radius, position) => {
-   const mesh = new THREE.Mesh(
-      new THREE.SphereGeometry(radius, 20, 20),
-      new THREE.MeshStandardMaterial({
-         metalness: 0.3,
-         roughness: 0.4,
-         envMap: environmentMapTexture
-      })
-   )
+   const mesh = new THREE.Mesh(sphereGeometry, sphereMaterial)
 
    mesh.castShadow = true
    mesh.position.copy(position)
