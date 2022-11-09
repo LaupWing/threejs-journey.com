@@ -5,8 +5,14 @@ import * as dat from 'lil-gui'
 import CANNON, { BroadPhase } from "cannon"
 const hitSound = new Audio("/sounds/hit.mp3")
 
-const playHitSound = () => {
-   hitSound.play()
+const playHitSound = (collision) => {
+   const impactStrength = collision.contact.getImpactVelocityAlongNormal()
+
+   if (impactStrength > 1.5) {
+      hitSound.volume = Math.random()
+      hitSound.currentTime = 0
+      hitSound.play()
+   }
 }
 
 /**
@@ -27,7 +33,16 @@ debugObject.createBox = () => {
       }
    )
 }
+debugObject.reset = () => {
+   for (const object of objectsToUpdate) {
+      object.body.removeEventListener("collide", playHitSound)
+      world.removeBody(object.body)
+      scene.remove(object.mesh)
+      objectsToUpdate.splice(0, objectsToUpdate.length)
+   }
+}
 gui.add(debugObject, "createBox")
+gui.add(debugObject, "reset")
 
 /**
  * Base
@@ -189,6 +204,7 @@ const createBox = (width, height, depth, position) => {
    })
 
    body.position.copy(position)
+   body.addEventListener("collide", playHitSound)
    world.addBody(body)
 
    objectsToUpdate.push({
@@ -213,6 +229,7 @@ const tick = () => {
    world.step(1 / 60, deltaTime, 3)
 
    for (const object of objectsToUpdate) {
+      object.mesh.quaternion.copy(object.body.quaternion)
       object.mesh.position.copy(object.body.position)
    }
    // Update controls
