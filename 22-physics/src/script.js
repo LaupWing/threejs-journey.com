@@ -3,7 +3,11 @@ import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import * as dat from 'lil-gui'
 import CANNON, { BroadPhase } from "cannon"
+const hitSound = new Audio("/sounds/hit.mp3")
 
+const playHitSound = () => {
+   hitSound.play()
+}
 
 /**
  * Debug
@@ -209,7 +213,7 @@ const tick = () => {
    world.step(1 / 60, deltaTime, 3)
 
    for (const object of objectsToUpdate) {
-      object.mesh.quaternion.copy(object.body.quaternion)
+      object.mesh.position.copy(object.body.position)
    }
    // Update controls
    controls.update()
