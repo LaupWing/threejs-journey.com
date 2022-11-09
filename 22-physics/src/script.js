@@ -2,7 +2,7 @@ import './style.css'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import * as dat from 'lil-gui'
-import CANNON from "cannon"
+import CANNON, { BroadPhase } from "cannon"
 
 
 /**
@@ -50,6 +50,8 @@ const environmentMapTexture = cubeTextureLoader.load([
 ])
 
 const world = new CANNON.World()
+world.BroadPhase = new CANNON.SAPBroadphase(world)
+world.allowSleep = true
 world.gravity.set(0, -9.82, 0)
 
 const defaultMaterial = new CANNON.Material("default")
