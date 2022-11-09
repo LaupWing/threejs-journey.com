@@ -18,6 +18,7 @@ const scene = new THREE.Scene()
 
 const gltfLoader = new GLTFLoader()
 
+// DRACO LOADER!!!!!!!!!
 gltfLoader.load(
    "/models/FlightHelmet/glTF/FlightHelmet.gltf",
    (gltf) => {
