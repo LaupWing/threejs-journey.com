@@ -2,7 +2,7 @@ import './style.css'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import * as dat from 'lil-gui'
-import CANNON, { BroadPhase } from "cannon"
+import * as CANNON from "cannon-es"
 const hitSound = new Audio("/sounds/hit.mp3")
 
 const playHitSound = (collision) => {
