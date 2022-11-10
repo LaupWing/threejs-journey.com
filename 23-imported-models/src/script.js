@@ -19,6 +19,9 @@ const scene = new THREE.Scene()
 
 const gltfLoader = new GLTFLoader()
 const dracoLoader = new DRACOLoader()
+dracoLoader.setDecoderPath("/draco/")
+
+gltfLoader.setDRACOLoader(dracoLoader)
 
 // DRACO LOADER!!!!!!!!!
 gltfLoader.load(
