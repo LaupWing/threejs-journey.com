@@ -26,6 +26,9 @@ const updateAllMaterials = () => {
       if (child instanceof THREE.Mesh && child.material instanceof THREE.MeshStandardMaterial) {
 
          child.material.envMapIntensity = debugObject.envMapIntensity
+         child.castShadow = true
+         child.receiveShadow = true
+         child.material.needsUpdate = true
       }
    })
 }
@@ -43,7 +46,7 @@ environmentMap.encoding = THREE.sRGBEncoding
 scene.background = environmentMap
 scene.environment = environmentMap
 
-debugObject.envMapIntensity = 5
+debugObject.envMapIntensity = 2
 gui.add(debugObject, "envMapIntensity").min(0).max(10).step(0.001).onChange(() => {
    updateAllMaterials()
 })
@@ -69,7 +72,13 @@ gltfLoader.load(
 // Lights
 const directionalLight = new THREE.DirectionalLight("#ffffff", 3)
 directionalLight.position.set(0.25, 3, -2.25)
+directionalLight.castShadow = true
+directionalLight.shadow.camera.far = 15
+directionalLight.shadow.mapSize.set(1024, 1024)
 scene.add(directionalLight)
+
+const directionalLightCameraHelper = new THREE.CameraHelper(directionalLight.shadow.camera)
+scene.add(directionalLightCameraHelper)
 
 gui.add(directionalLight, "intensity").min(0).max(10).step(0.001).name("lightIntensity")
 gui.add(directionalLight.position, "x").min(-5).max(5).step(0.001).name("lightX")
@@ -115,13 +124,17 @@ controls.enableDamping = true
  * Renderer
  */
 const renderer = new THREE.WebGLRenderer({
-   canvas: canvas
+   canvas: canvas,
+   antialias: true
 })
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 renderer.physicallyCorrectLights = true
 renderer.outputEncoding = THREE.sRGBEncoding
 renderer.toneMapping = THREE.ReinhardToneMapping
+renderer.toneMappingExposure = 3
+renderer.shadowMap.enabled = true
+renderer.shadowMap.type = THREE.PCFSoftShadowMap
 
 gui.add(renderer, "toneMapping", {
    No: THREE.NoToneMapping,
@@ -130,7 +143,10 @@ gui.add(renderer, "toneMapping", {
    Cineon: THREE.CineonToneMapping,
    ACESFilmic: THREE.ACESFilmicToneMapping
 })
-
+gui.add(renderer, "toneMappingExposure")
+   .min(0)
+   .max(10)
+   .step(0.001)
 /**
  * Animate
  */
