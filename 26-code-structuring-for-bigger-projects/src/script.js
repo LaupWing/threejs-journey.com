@@ -1,4 +1,12 @@
 import './style.css'
+import Experience from "./Experience/Experience"
+
+console.log(Experience);
+
+const experience = new Experience(
+   document.querySelector('canvas.webgl')
+)
+
 // import * as THREE from 'three'
 // import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 // import * as dat from 'lil-gui'

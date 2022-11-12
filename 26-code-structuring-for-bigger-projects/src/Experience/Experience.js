@@ -1,5 +1,6 @@
 export default class Experience {
-   constructor() {
-
+   constructor(canvas) {
+      window.experience = this
+      this.canvas = canvas
    }
 }
