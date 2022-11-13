@@ -6,5 +6,8 @@ export default class Experience {
 
       this.canvas = canvas
       this.sizes = new Sizes()
+      this.sizes.on("resize", () => {
+
+      })
    }
 }
