@@ -1,13 +1,21 @@
 import Sizes from "./Utils/Sizes"
+import Time from "./Utils/Time"
 
 export default class Experience {
    constructor(canvas) {
       window.experience = this
 
       this.canvas = canvas
-      this.sizes = new Sizes()
-      this.sizes.on("resize", () => {
 
+      this.sizes = new Sizes()
+      this.time = new Time()
+
+      this.sizes.on("resize", () => {
+         this.resize()
       })
+   }
+
+   resize() {
+
    }
 }
