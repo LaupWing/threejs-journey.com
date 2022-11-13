@@ -13,9 +13,17 @@ export default class Experience {
       this.sizes.on("resize", () => {
          this.resize()
       })
+
+      this.time.on("tick", () => {
+         this.update()
+      })
    }
 
    resize() {
+
+   }
+
+   update() {
 
    }
 }
