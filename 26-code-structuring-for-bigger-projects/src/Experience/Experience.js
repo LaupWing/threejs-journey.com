@@ -3,8 +3,15 @@ import Camera from "./Camera"
 import Sizes from "./Utils/Sizes"
 import Time from "./Utils/Time"
 
+let instance
+
 export default class Experience {
    constructor(canvas) {
+
+      if (instance) {
+         return instance
+      }
+      instance = this
       window.experience = this
 
       this.canvas = canvas
