@@ -11,7 +11,7 @@ export default class World {
 
       this.resources.on("ready", () => {
          this.floor = new Floor()
-         // this.fox = new Fox()
+         this.fox = new Fox()
          this.environment = new Environment()
       })
 

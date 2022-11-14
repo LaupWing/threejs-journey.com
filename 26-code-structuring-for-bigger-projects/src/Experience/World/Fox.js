@@ -1,4 +1,5 @@
 import Experience from "../Experience"
+import * as THREE from "three"
 
 export default class {
    constructor() {
@@ -8,10 +9,22 @@ export default class {
       this.resource = this.resources.items.foxModel
 
       this.setModel()
+      this.setAnimation()
    }
 
    setModel() {
       this.model = this.resource.scene
-      console.log(this.model)
+      this.model.scale.set(0.02, 0.02, 0.02)
+      this.scene.add(this.model)
+
+      this.model.traverse(child => {
+         if (child instanceof THREE.Mesh) {
+            child.castShadow = true
+         }
+      })
+   }
+
+   setAnimation() {
+
    }
 }

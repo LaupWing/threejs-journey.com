@@ -24,7 +24,7 @@ export default class Resources extends EventEmitter {
 
    startLoading() {
       for (const source of this.sources) {
-         if (source.type === "gltModel") {
+         if (source.type === "gltfModel") {
             this.loaders.gltfLoader.load(
                source.path,
                (file) => {
