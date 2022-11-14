@@ -9,7 +9,7 @@ export default class World {
 
       const testMesh = new THREE.Mesh(
          new THREE.BoxGeometry(1, 1, 1),
-         new THREE.MeshStandardMaterial({ wireframe: true })
+         new THREE.MeshStandardMaterial()
       )
       this.scene.add(testMesh)
 

@@ -1,8 +1,6 @@
 import './style.css'
 import Experience from "./Experience/Experience"
 
-console.log(Experience);
-
 const experience = new Experience(
    document.querySelector('canvas.webgl')
 )
