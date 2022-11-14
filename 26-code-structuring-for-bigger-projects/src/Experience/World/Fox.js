@@ -8,6 +8,11 @@ export default class {
       this.resources = this.experience.resources
       this.resource = this.resources.items.foxModel
       this.time = this.experience.time
+      this.debug = this.experience.debug
+
+      if (this.debug.active) {
+         this.debugFolder = this.debug.ui.addFolder("fox")
+      }
 
       this.setModel()
       this.setAnimation()
