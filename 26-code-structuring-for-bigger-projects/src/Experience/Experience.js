@@ -3,6 +3,7 @@ import Camera from "./Camera"
 import Renderer from "./Renderer"
 import Sizes from "./Utils/Sizes"
 import Time from "./Utils/Time"
+import World from "./World/World"
 
 let instance
 
@@ -22,6 +23,7 @@ export default class Experience {
       this.scene = new THREE.Scene()
       this.camera = new Camera()
       this.renderer = new Renderer()
+      this.world = new World()
 
       this.sizes.on("resize", () => {
          this.resize()
