@@ -41,7 +41,16 @@ export default class {
       this.animation.actions.running = this.animation.mixer.clipAction(this.resource.animations[2])
 
       this.animation.actions.current = this.animation.actions.idle
-      this.animation.actions.current.play()
+
+      this.animation.play = (name) => {
+         const newAction = this.animation.actions[name]
+         const oldAction = this.animation.actions.current
+
+         newAction.reset()
+         nexAction.play()
+         newAction.crossFadeFrom(oldAction, 1)
+      }
+
    }
 
    update() {
