@@ -47,10 +47,22 @@ export default class {
          const oldAction = this.animation.actions.current
 
          newAction.reset()
-         nexAction.play()
+         newAction.play()
          newAction.crossFadeFrom(oldAction, 1)
+
+         this.animation.actions.current = newAction
       }
 
+      if (this.debug.active) {
+         const debugObject = {
+            playIdle: () => { this.animation.play('idle') },
+            playWalking: () => { this.animation.play('walking') },
+            playRunning: () => { this.animation.play('running') }
+         }
+         this.debugFolder.add(debugObject, 'playIdle')
+         this.debugFolder.add(debugObject, 'playWalking')
+         this.debugFolder.add(debugObject, 'playRunning')
+      }
    }
 
    update() {
