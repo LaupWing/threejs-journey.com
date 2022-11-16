@@ -47,6 +47,9 @@ const material = new THREE.RawShaderMaterial({
       },
       uTime: {
          value: 0
+      },
+      uColor: {
+         value: new THREE.Color("orange")
       }
    }
 })

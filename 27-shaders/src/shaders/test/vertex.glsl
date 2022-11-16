@@ -2,6 +2,7 @@ uniform mat4 projectionMatrix;
 uniform mat4 viewMatrix;
 uniform mat4 modelMatrix;
 uniform vec2 uFrequency;
+
 uniform float uTime;
 
 attribute vec3 position;
