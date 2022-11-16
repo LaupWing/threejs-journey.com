@@ -6,6 +6,9 @@ uniform vec2 uFrequency;
 uniform float uTime;
 
 attribute vec3 position;
+attribute vec2 uv;
+
+varying vec2 vUv;
 
 void main(){
    // gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4(position, 1.0);
@@ -20,4 +23,5 @@ void main(){
    // modelPosition.z += aRandom * 0.1;
 
    gl_Position = projectedPosition;
+   vUv = uv;
 }
