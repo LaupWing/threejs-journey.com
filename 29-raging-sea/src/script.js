@@ -36,6 +36,9 @@ const waterMaterial = new THREE.ShaderMaterial({
       uBigWavesFrequency: {
          value: new THREE.Vector2(4, 1.5),
       },
+      uBigWavesSpeed: {
+         value: 0.75,
+      },
    },
 })
 
@@ -54,6 +57,11 @@ gui.add(waterMaterial.uniforms.uBigWavesFrequency.value, "y")
    .max(10)
    .step(0.001)
    .name("uBigWavesFrequencyY")
+gui.add(waterMaterial.uniforms.uBigWavesSpeed, "value")
+   .min(0)
+   .max(4)
+   .step(0.001)
+   .name("uBigWavesSpeed")
 
 // Mesh
 const water = new THREE.Mesh(waterGeometry, waterMaterial)
