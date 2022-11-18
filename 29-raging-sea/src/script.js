@@ -21,7 +21,7 @@ const scene = new THREE.Scene()
  * Water
  */
 // Geometry
-const waterGeometry = new THREE.PlaneGeometry(2, 2, 128, 128)
+const waterGeometry = new THREE.PlaneGeometry(2, 2, 512, 512)
 
 debugObject.depthColor = "#186691"
 debugObject.surfaceColor = "#9bd8ff"
