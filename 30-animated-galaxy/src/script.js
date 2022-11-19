@@ -49,7 +49,7 @@ const generateGalaxy = () => {
 
    const positions = new Float32Array(parameters.count * 3)
    const colors = new Float32Array(parameters.count * 3)
-   const scales = new Float32Array(parameters.count * 2)
+   const scales = new Float32Array(parameters.count * 1)
 
    const insideColor = new THREE.Color(parameters.insideColor)
    const outsideColor = new THREE.Color(parameters.outsideColor)
@@ -109,7 +109,7 @@ const generateGalaxy = () => {
       fragmentShader: galaxyFragmentShader,
       uniforms: {
          uSize: {
-            value: 2.0,
+            value: 2.0 * renderer.getPixelRatio(),
          },
       },
    })
@@ -120,8 +120,6 @@ const generateGalaxy = () => {
    points = new THREE.Points(geometry, material)
    scene.add(points)
 }
-
-generateGalaxy()
 
 gui.add(parameters, "count")
    .min(100)
@@ -218,5 +216,5 @@ const tick = () => {
    // Call tick again on the next frame
    window.requestAnimationFrame(tick)
 }
-
+generateGalaxy()
 tick()
