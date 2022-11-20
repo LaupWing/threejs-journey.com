@@ -111,6 +111,9 @@ const generateGalaxy = () => {
          uSize: {
             value: 30.0 * renderer.getPixelRatio(),
          },
+         uTime: {
+            value: 0,
+         },
       },
    })
 
@@ -206,6 +209,8 @@ const clock = new THREE.Clock()
 
 const tick = () => {
    const elapsedTime = clock.getElapsedTime()
+
+   material.uniforms.uTime.value = elapsedTime
 
    // Update controls
    controls.update()
