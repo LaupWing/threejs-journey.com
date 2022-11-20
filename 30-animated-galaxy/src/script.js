@@ -109,7 +109,7 @@ const generateGalaxy = () => {
       fragmentShader: galaxyFragmentShader,
       uniforms: {
          uSize: {
-            value: 2.0 * renderer.getPixelRatio(),
+            value: 30.0 * renderer.getPixelRatio(),
          },
       },
    })
