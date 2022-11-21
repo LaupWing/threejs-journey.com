@@ -74,9 +74,9 @@ const material = new THREE.MeshStandardMaterial({
 
 material.onBeforeCompile = (shader) => {
    shader.vertexShader = shader.vertexShader.replace(
-      "#include <begin_vertex>",
+      "#include <common>",
       `
-         #include <begin_vertex>
+         #include <common>
 
          float angle = 0.3;
 
@@ -84,6 +84,15 @@ material.onBeforeCompile = (shader) => {
          {
             return mat2(cos(_angle), - sin(_angle), sin(_angle), cos(_angle));
          }
+
+      `
+   )
+   shader.vertexShader = shader.vertexShader.replace(
+      "#include <begin_vertex>",
+      `
+         #include <begin_vertex>
+
+         float angle = 0.3;
 
       `
    )
