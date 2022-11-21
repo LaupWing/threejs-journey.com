@@ -77,6 +77,14 @@ material.onBeforeCompile = (shader) => {
       "#include <begin_vertex>",
       `
          #include <begin_vertex>
+
+         float angle = 0.3;
+
+         mat2 get2dRotateMatrix(float _angle)
+         {
+            return mat2(cos(_angle), - sin(_angle), sin(_angle), cos(_angle));
+         }
+
       `
    )
 }
