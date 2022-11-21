@@ -109,6 +109,13 @@ material.onBeforeCompile = (shader) => {
          transformed.xz = rotateMatrix * transformed.xz;
       `
    )
+   shader.vertexShader = shader.vertexShader.replace(
+      "#include <beginnormal_vertex>",
+      `
+         #include <beginnormal_vertex>
+
+      `
+   )
 }
 
 depthMaterial.onBeforeCompile = (shader) => {
