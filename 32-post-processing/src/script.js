@@ -143,6 +143,12 @@ renderer.toneMappingExposure = 1.5
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
+// Our own rendertarget
+
+const renderTarget = new THREE.WebGL3DRenderTarget(800, 600, {
+   samples: renderer.getPixelRatio() === 1 ? 2 : 0,
+})
+
 const effectComposer = new EffectComposer(renderer)
 effectComposer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 effectComposer.setSize(sizes.width, sizes.height)
