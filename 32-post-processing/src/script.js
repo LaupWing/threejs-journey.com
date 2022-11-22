@@ -131,7 +131,7 @@ controls.enableDamping = true
 /**
  * Renderer
  */
-const renderer = new THREE.WebGLRenderer({
+const renderer = new THREE.WebGL1Renderer({
    canvas: canvas,
    antialias: true,
 })
@@ -147,7 +147,7 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 // Our own rendertarget
 
 const renderTarget = new THREE.WebGL3DRenderTarget(800, 600, {
-   // samples: renderer.getPixelRatio() === 1 ? 2 : 0,
+   samples: renderer.getPixelRatio() === 1 ? 2 : 0,
 })
 
 const effectComposer = new EffectComposer(renderer)
@@ -172,8 +172,11 @@ rgbShiftPass.enabled = false
 const gammaCorrectionShader = new ShaderPass(GammaCorrectionShader)
 effectComposer.addPass(gammaCorrectionShader)
 
-const smaaPass = new SMAAPass()
-effectComposer.addPass(smaaPass)
+if (renderer.getPixelRatio() === 1 && renderer.capabilities.isWebGL2) {
+   const smaaPass = new SMAAPass()
+   effectComposer.addPass(smaaPass)
+}
+
 /**
  * Animate
  */
