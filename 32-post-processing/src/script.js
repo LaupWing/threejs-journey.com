@@ -146,7 +146,7 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 // Our own rendertarget
 
 const renderTarget = new THREE.WebGL3DRenderTarget(800, 600, {
-   samples: renderer.getPixelRatio() === 1 ? 2 : 0,
+   // samples: renderer.getPixelRatio() === 1 ? 2 : 0,
 })
 
 const effectComposer = new EffectComposer(renderer)
