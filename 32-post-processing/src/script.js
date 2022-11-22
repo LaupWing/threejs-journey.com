@@ -10,7 +10,7 @@ import { GlitchPass } from "three/examples/jsm/postprocessing/GlitchPass"
 import { UnrealBloomPass } from "three/examples/jsm/postprocessing/UnrealBloomPass"
 import { ShaderPass } from "three/examples/jsm/postprocessing/ShaderPass"
 import { RGBShiftShader } from "three/examples/jsm/shaders/RGBShiftShader"
-import { RGBShiftShader } from "three/examples/jsm/shaders/RGBShiftShader"
+// import { RGBShiftShader } from "three/examples/jsm/shaders/RGBShiftShader"
 import { GammaCorrectionShader } from "three/examples/jsm/shaders/GammaCorrectionShader"
 import { SMAAPass } from "three/examples/jsm/postprocessing/SMAAPass"
 
@@ -171,14 +171,60 @@ const rgbShiftPass = new ShaderPass(RGBShiftShader)
 effectComposer.addPass(rgbShiftPass)
 rgbShiftPass.enabled = false
 
-const unrealBloomPass = new UnrealBloomPass()
-effectComposer.addPass(unrealBloomPass)
-unrealBloomPass.enabled = false
+// const unrealBloomPass = new UnrealBloomPass()
+// effectComposer.addPass(unrealBloomPass)
+// unrealBloomPass.enabled = false
 
-gui.add(unrealBloomPass, "enabled")
-gui.add(unrealBloomPass, "strength").min(0).max(2).step(0.001)
-gui.add(unrealBloomPass, "radius").min(0).max(2).step(0.001)
-gui.add(unrealBloomPass, "threshold").min(0).max(1).step(0.001)
+// gui.add(unrealBloomPass, "enabled")
+// gui.add(unrealBloomPass, "strength").min(0).max(2).step(0.001)
+// gui.add(unrealBloomPass, "radius").min(0).max(2).step(0.001)
+// gui.add(unrealBloomPass, "threshold").min(0).max(1).step(0.001)
+
+const TintShader = {
+   uniforms: {
+      tDiffuse: { value: null },
+      uTint: { value: null },
+   },
+   vertextShader: `
+      varying vec2 vUv;
+
+      void main(){
+         gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+
+         vUv = uv;
+      }
+   `,
+   fragmentShader: `
+      uniform sampler2D tDiffuse;
+      uniform vec3 uTint;
+
+      void main(){
+         vec4 color = texture2D(tDiffuse, vUv);
+         color.r += 0.1;
+         gl_FragColor = color;
+      }
+   `,
+}
+
+const tintPass = new ShaderPass(TintShader)
+tintPass.material.uniforms.uTint.value = new THREE.Vector3()
+effectComposer.addPass(tintPass)
+
+gui.add(tintPass.material.uniforms.uTint.value, "x")
+   .min(-1)
+   .max(1)
+   .step(0.001)
+   .name("red")
+gui.add(tintPass.material.uniforms.uTint.value, "y")
+   .min(-1)
+   .max(1)
+   .step(0.001)
+   .name("green")
+gui.add(tintPass.material.uniforms.uTint.value, "z")
+   .min(-1)
+   .max(1)
+   .step(0.001)
+   .name("blue")
 
 const gammaCorrectionShader = new ShaderPass(GammaCorrectionShader)
 effectComposer.addPass(gammaCorrectionShader)
