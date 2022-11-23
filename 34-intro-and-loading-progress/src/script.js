@@ -9,10 +9,11 @@ import gsap from "gsap"
  */
 const loadingManager = new THREE.LoadingManager(
    // Loaded
-   () => {},
-   // Progress
    () => {
       gsap.to(overlayMaterial.uniforms.uAlpha, { duration: 3, value: 0 })
+   },
+   // Progress
+   () => {
    }
 )
 const gltfLoader = new GLTFLoader(loadingManager)
