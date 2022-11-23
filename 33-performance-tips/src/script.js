@@ -247,7 +247,6 @@ tick()
 
 // const material = new THREE.MeshNormalMaterial()
 
-
 // for (let i = 0; i < 50; i++) {
 //    const position = new THREE.Vector3(
 //       (Math.random() - 0.5) * 10,
@@ -281,12 +280,12 @@ tick()
 const shaderGeometry = new THREE.PlaneGeometry(10, 10, 256, 256)
 
 const shaderMaterial = new THREE.ShaderMaterial({
-    uniforms:
-    {
-        uDisplacementTexture: { value: displacementTexture },
-        uDisplacementStrength: { value: 1.5 }
-    },
-    vertexShader: `
+   precision: "lowp",
+   uniforms: {
+      uDisplacementTexture: { value: displacementTexture },
+      uDisplacementStrength: { value: 1.5 },
+   },
+   vertexShader: `
         uniform sampler2D uDisplacementTexture;
         uniform float uDisplacementStrength;
 
@@ -309,7 +308,7 @@ const shaderMaterial = new THREE.ShaderMaterial({
             vUv = uv;
         }
     `,
-    fragmentShader: `
+   fragmentShader: `
         uniform sampler2D uDisplacementTexture;
 
         varying vec2 vUv;
@@ -324,16 +323,13 @@ const shaderMaterial = new THREE.ShaderMaterial({
 
             vec3 depthColor = vec3(1.0, 0.1, 0.1);
             vec3 surfaceColor = vec3(0.1, 0.0, 0.5);
-            vec3 finalColor = vec3(0.0);
-            finalColor.r += depthColor.r + (surfaceColor.r - depthColor.r) * elevation;
-            finalColor.g += depthColor.g + (surfaceColor.g - depthColor.g) * elevation;
-            finalColor.b += depthColor.b + (surfaceColor.b - depthColor.b) * elevation;
+            vec3 finalColor = mix(depthColor, surfaceColor, elevation);
 
             gl_FragColor = vec4(finalColor, 1.0);
         }
-    `
+    `,
 })
 
 const shaderMesh = new THREE.Mesh(shaderGeometry, shaderMaterial)
-shaderMesh.rotation.x = - Math.PI * 0.5
+shaderMesh.rotation.x = -Math.PI * 0.5
 scene.add(shaderMesh)
