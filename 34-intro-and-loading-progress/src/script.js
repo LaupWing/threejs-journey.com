@@ -2,18 +2,17 @@ import "./style.css"
 import * as THREE from "three"
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js"
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js"
+import gsap from "gsap"
 
 /**
  * Loaders
  */
 const loadingManager = new THREE.LoadingManager(
    // Loaded
-   () => {
-
-   },
+   () => {},
    // Progress
    () => {
-
+      gsap.to(overlayMaterial.uniforms.uAlpha, { duration: 3, value: 0 })
    }
 )
 const gltfLoader = new GLTFLoader(loadingManager)
