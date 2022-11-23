@@ -3,6 +3,7 @@ import * as THREE from "three"
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js"
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js"
 import gsap from "gsap"
+const loadingBarElement = document.querySelector(".loading-bar")
 
 /**
  * Loaders
@@ -13,7 +14,9 @@ const loadingManager = new THREE.LoadingManager(
       gsap.to(overlayMaterial.uniforms.uAlpha, { duration: 3, value: 0 })
    },
    // Progress
-   () => {
+   (itemUrl, itemsLoaded, itemsTotal) => {
+      const progressRatio = itemsLoaded / itemsTotal
+      loadingBarElement.style.transform = `scaleX(${progressRatio})`
    }
 )
 const gltfLoader = new GLTFLoader(loadingManager)
