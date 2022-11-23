@@ -6,7 +6,17 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js"
 /**
  * Loaders
  */
-const gltfLoader = new GLTFLoader()
+const loadingManager = new THREE.LoadingManager(
+   // Loaded
+   () => {
+
+   },
+   // Progress
+   () => {
+
+   }
+)
+const gltfLoader = new GLTFLoader(loadingManager)
 const cubeTextureLoader = new THREE.CubeTextureLoader()
 
 /**
@@ -20,6 +30,31 @@ const canvas = document.querySelector("canvas.webgl")
 
 // Scene
 const scene = new THREE.Scene()
+
+const overlayGeometry = new THREE.PlaneGeometry(2, 2, 1, 1)
+const overlayMaterial = new THREE.ShaderMaterial({
+   transparent: true,
+   uniforms: {
+      uAlpha: {
+         value: 1,
+      },
+   },
+   vertexShader: `
+      void main()
+      {
+         gl_Position = vec4(position, 1.0);
+      }
+   `,
+   fragmentShader: `
+      uniform float uAlpha;
+      void main()
+      {
+         gl_FragColor = vec4(0.0, 0.0, 0.0, uAlpha);
+      }
+   `,
+})
+const overlay = new THREE.Mesh(overlayGeometry, overlayMaterial)
+scene.add(overlay)
 
 /**
  * Update all materials
