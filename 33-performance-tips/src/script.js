@@ -286,19 +286,21 @@ const shaderMaterial = new THREE.ShaderMaterial({
       uDisplacementStrength: { value: 1.5 },
    },
    vertexShader: `
-        uniform sampler2D uDisplacementTexture;
-        uniform float uDisplacementStrength;
+      #defiene uDisplacementStrength 1.5;
 
-        varying vec2 vUv;
+      uniform sampler2D uDisplacementTexture;
+      uniform float uDisplacementStrength;
 
-        void main()
-        {
+      varying vec2 vUv;
+
+      void main()
+         {
             vec4 modelPosition = modelMatrix * vec4(position, 1.0);
 
             float elevation = texture2D(uDisplacementTexture, uv).r;
             if(elevation < 0.5)
             {
-                elevation = 0.5;
+                  elevation = 0.5;
             }
 
             modelPosition.y += elevation * uDisplacementStrength;
