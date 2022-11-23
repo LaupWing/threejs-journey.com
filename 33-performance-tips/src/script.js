@@ -285,6 +285,9 @@ const shaderMaterial = new THREE.ShaderMaterial({
       uDisplacementTexture: { value: displacementTexture },
       uDisplacementStrength: { value: 1.5 },
    },
+   defines:{
+      DISPLACEMENTS_STRENGTH: 1.5
+   },
    vertexShader: `
       #defiene uDisplacementStrength 1.5;
 
