@@ -7,6 +7,7 @@ import { gsap } from "gsap"
 /**
  * Loaders
  */
+let sceneReady = false
 const loadingBarElement = document.querySelector(".loading-bar")
 const loadingManager = new THREE.LoadingManager(
    // Loaded
@@ -23,6 +24,9 @@ const loadingManager = new THREE.LoadingManager(
          // Update loadingBarElement
          loadingBarElement.classList.add("ended")
          loadingBarElement.style.transform = ""
+         setTimeout(()=>{
+            sceneReady = true
+         },2000)
       }, 500)
    },
 
@@ -202,30 +206,32 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
  */
 const tick = () => {
    // Update controls
-   controls.update()
-   for (const point of points){
-      const screenPosition = point.position.clone()
-      screenPosition.project(camera)
-
-      raycaster.setFromCamera(screenPosition, camera)
-      const intersects = raycaster.intersectObjects(scene.children, true)
-
-      if(intersects.length === 0){
-         point.classList.add("visible")
-      }else{
-         const intersectionDistance = intersects[0].distance
-         const pointDistance = point.position.distanceTo(camera.position)
-
-         if(intersectionDistance < pointDistance){
-            point.classList.remove("visible")
-         }else{
+   controls.update() 
+   if(sceneReady){
+      for (const point of points){
+         const screenPosition = point.position.clone()
+         screenPosition.project(camera)
+   
+         raycaster.setFromCamera(screenPosition, camera)
+         const intersects = raycaster.intersectObjects(scene.children, true)
+   
+         if(intersects.length === 0){
             point.classList.add("visible")
+         }else{
+            const intersectionDistance = intersects[0].distance
+            const pointDistance = point.position.distanceTo(camera.position)
+   
+            if(intersectionDistance < pointDistance){
+               point.classList.remove("visible")
+            }else{
+               point.classList.add("visible")
+            }
          }
+   
+         const translateX = screenPosition.x * sizes.width * 0.5
+         const translateY = -screenPosition.y * sizes.height * 0.5
+         point.element.style.transform = `translateX(${translateX}px) translateY(${translateY})`
       }
-
-      const translateX = screenPosition.x * sizes.width * 0.5
-      const translateY = -screenPosition.y * sizes.height * 0.5
-      point.element.style.transform = `translateX(${translateX}px) translateY(${translateY})`
    }
 
    // Render
