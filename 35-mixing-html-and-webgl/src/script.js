@@ -24,9 +24,9 @@ const loadingManager = new THREE.LoadingManager(
          // Update loadingBarElement
          loadingBarElement.classList.add("ended")
          loadingBarElement.style.transform = ""
-         setTimeout(()=>{
+         setTimeout(() => {
             sceneReady = true
-         },2000)
+         }, 2000)
       }, 500)
    },
 
@@ -129,10 +129,19 @@ gltfLoader.load("/models/DamagedHelmet/glTF/DamagedHelmet.gltf", (gltf) => {
 })
 
 const raycaster = new THREE.Raycaster()
+
 const points = [
    {
       position: new THREE.Vector3(1.55, 0.3, -0.6),
       element: document.querySelector(".point-0"),
+   },
+   {
+      position: new THREE.Vector3(0.5, 0.8, -1.6),
+      element: document.querySelector(".point-1"),
+   },
+   {
+      position: new THREE.Vector3(1.6, -1.3, -0.7),
+      element: document.querySelector(".point-2"),
    },
 ]
 /**
@@ -206,28 +215,28 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
  */
 const tick = () => {
    // Update controls
-   controls.update() 
-   if(sceneReady){
-      for (const point of points){
+   controls.update()
+   if (sceneReady) {
+      for (const point of points) {
          const screenPosition = point.position.clone()
          screenPosition.project(camera)
-   
+
          raycaster.setFromCamera(screenPosition, camera)
          const intersects = raycaster.intersectObjects(scene.children, true)
-   
-         if(intersects.length === 0){
+
+         if (intersects.length === 0) {
             point.classList.add("visible")
-         }else{
+         } else {
             const intersectionDistance = intersects[0].distance
             const pointDistance = point.position.distanceTo(camera.position)
-   
-            if(intersectionDistance < pointDistance){
+
+            if (intersectionDistance < pointDistance) {
                point.classList.remove("visible")
-            }else{
+            } else {
                point.classList.add("visible")
             }
          }
-   
+
          const translateX = screenPosition.x * sizes.width * 0.5
          const translateY = -screenPosition.y * sizes.height * 0.5
          point.element.style.transform = `translateX(${translateX}px) translateY(${translateY})`
