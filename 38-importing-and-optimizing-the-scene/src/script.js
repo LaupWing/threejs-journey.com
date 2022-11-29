@@ -78,7 +78,20 @@ for(let i = 0; i < fireFliesCount; i++){
 
 fireFliesGeometry.setAttribute("position", new THREE.BufferAttribute(positionArray, 3))
 
-const firefliesMaterial = new THREE.PointsMaterial({ size: 0.1, sizeAttenuation: true })
+const firefliesMaterial = new THREE.ShaderMaterial({
+   uniforms:{
+      uPixelRatio: {
+         value: Math.min(window.devicePixelRatio, 2)
+      },
+      uSize: {
+         value: 100
+      }
+   },
+   vertexShader: firefliesVertexShader,
+   fragmentShader: firefliesFragmentShader
+})
+
+gui.add(fire)
 
 const fireflies = new THREE.Points(fireFliesGeometry, firefliesMaterial)
 scene.add(fireflies)
@@ -103,6 +116,8 @@ window.addEventListener("resize", () => {
    // Update renderer
    renderer.setSize(sizes.width, sizes.height)
    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+
+   firefliesMaterial.uniforms.uPixelRatio.value = Math.min(window.devicePixelRatio, 2)
    
 })
 
