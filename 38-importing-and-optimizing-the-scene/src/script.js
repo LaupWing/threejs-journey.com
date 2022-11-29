@@ -33,30 +33,34 @@ dracoLoader.setDecoderPath("draco/")
 const gltfLoader = new GLTFLoader()
 gltfLoader.setDRACOLoader(dracoLoader)
 
-/**
- * Object
- */
-const cube = new THREE.Mesh(
-   new THREE.BoxGeometry(1, 1, 1),
-   new THREE.MeshBasicMaterial()
-)
-
-scene.add(cube)
-
+const bakedTexture = textureLoader.load("baked2.jpg")
+bakedTexture.flipY = false
+bakedTexture.encoding = THREE.sRGBEncoding
 // Model
 
 const bakedMaterial = new THREE.MeshBasicMaterial({
-   color: 0xff0000
+   map: bakedTexture
+})
+const poleLightMaterial = new THREE.MeshBasicMaterial({
+   color: 0xffffe5
 })
 gltfLoader.load(
    "portal2.glb", 
    (gltf) => {
       console.log(gltf)
       gltf.scene.traverse((child)=>{
-         console.log(child)
          child.material = bakedMaterial
       })
-      // console.log(gltf)
+      const portalMesh = gltf.scene.children.find(x=>x.name === "portal") 
+      const poleLightAMesh = gltf.scene.children.find(x=>x.name === "poleLightA") 
+      const poleLightBMesh = gltf.scene.children.find(x=>x.name === "poleLightB") 
+
+      poleLightAMesh.material = poleLightMaterial
+      poleLightBMesh.material = poleLightMaterial
+
+      console.log(portalMesh)
+      console.log(poleLightAMesh)
+      console.log(poleLightBMesh)
       scene.add(gltf.scene)
 })
 
@@ -82,6 +86,7 @@ window.addEventListener("resize", () => {
    // Update renderer
    renderer.setSize(sizes.width, sizes.height)
    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+   
 })
 
 /**
@@ -112,6 +117,7 @@ const renderer = new THREE.WebGLRenderer({
 })
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+renderer.outputEncoding = THREE.sRGBEncoding
 
 /**
  * Animate
