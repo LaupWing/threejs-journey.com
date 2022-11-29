@@ -9,6 +9,7 @@ import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader.js"
  * Base
  */
 // Debug
+const debugObject = {}
 const gui = new dat.GUI({
    width: 400,
 })
@@ -50,8 +51,6 @@ const portalMaterial = new THREE.MeshBasicMaterial({
 gltfLoader.load(
    "portal2.glb", 
    (gltf) => {
-      console.log(gltf)
-     
       const bakedMesh = gltf.scene.children.find((child) => child.name === 'baked')
       const portalMesh = gltf.scene.children.find(x=>x.name === "portal") 
       const poleLightAMesh = gltf.scene.children.find(x=>x.name === "poleLightA") 
@@ -65,7 +64,17 @@ gltfLoader.load(
       scene.add(gltf.scene)
 })
 
+const fireFliesGeometry = new THREE.BufferGeometry()
+const fireFliesCount = 30
+const positionArray = new Float32Array(fireFliesCount * 3)
 
+for(let i = 0; i < fireFliesCount; i++){
+   positionArray[i * 3 + 0] = Math.random() * 4
+   positionArray[i * 3 + 1] = Math.random() * 4
+   positionArray[i * 3 + 2] = Math.random() * 4
+}
+
+fireFliesGeometry.setAttribute("position", new THREE.BufferAttribute(positionArray, 3))
 
 /**
  * Sizes
@@ -119,6 +128,14 @@ const renderer = new THREE.WebGLRenderer({
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 renderer.outputEncoding = THREE.sRGBEncoding
+
+debugObject.clearColor = "#201919"
+renderer.setClearColor(debugObject.clearColor)
+gui
+   .addColor(debugObject, "clearColor")
+   .onChange(()=>{
+      renderer.setClearColor(debugObject.clearColor)
+   })
 
 /**
  * Animate
