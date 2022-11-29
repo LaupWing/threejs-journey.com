@@ -44,6 +44,9 @@ const bakedMaterial = new THREE.MeshBasicMaterial({
 const poleLightMaterial = new THREE.MeshBasicMaterial({
    color: 0xffffe5
 })
+const portalMaterial = new THREE.MeshBasicMaterial({
+   color: 0xffffff
+})
 gltfLoader.load(
    "portal2.glb", 
    (gltf) => {
@@ -57,6 +60,7 @@ gltfLoader.load(
 
       poleLightAMesh.material = poleLightMaterial
       poleLightBMesh.material = poleLightMaterial
+      portalMesh.material = portalMaterial
 
       console.log(portalMesh)
       console.log(poleLightAMesh)
