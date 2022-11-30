@@ -44,40 +44,49 @@ bakedTexture.encoding = THREE.sRGBEncoding
 // Model
 
 const bakedMaterial = new THREE.MeshBasicMaterial({
-   map: bakedTexture
+   map: bakedTexture,
 })
 const poleLightMaterial = new THREE.MeshBasicMaterial({
-   color: 0xffffe5
+   color: 0xffffe5,
 })
 const portalMaterial = new THREE.ShaderMaterial({
-   uniforms:{
-      uTime:{
-         value: 0
+   uniforms: {
+      uTime: {
+         value: 0,
       },
-      uColorStart:{
-         value: new THREE.Color(0xff0000)
-      },
-      uColorEnd:{
-         value: new THREE.Color(0x0000ff)
-      }
+      uColorStart: { value: new THREE.Color(debugObject.portalColorStart) },
+      uColorEnd: { value: new THREE.Color(debugObject.portalColorEnd) },
    },
    vertexShader: portalVertexShader,
    fragmentShader: portalFragmentShader,
 })
-gltfLoader.load(
-   "portal2.glb", 
-   (gltf) => {
-      const bakedMesh = gltf.scene.children.find((child) => child.name === 'baked')
-      const portalMesh = gltf.scene.children.find(x=>x.name === "portal") 
-      const poleLightAMesh = gltf.scene.children.find(x=>x.name === "poleLightA") 
-      const poleLightBMesh = gltf.scene.children.find(x=>x.name === "poleLightB") 
 
-      poleLightAMesh.material = poleLightMaterial
-      poleLightBMesh.material = poleLightMaterial
-      portalMesh.material = portalMaterial
-      bakedMesh.material = bakedMaterial
+debugObject.portalColorStart = "#ff0000"
+debugObject.portalColorEnd = "#0000ff"
 
-      scene.add(gltf.scene)
+gui.addColor(debugObject, "portalColorStart").onChange(() => {
+   portalMaterial.uniforms.uColorStart.value.set(debugObject.portalColorStart)
+})
+
+gui.addColor(debugObject, "portalColorEnd").onChange(() => {
+   portalMaterial.uniforms.uColorEnd.value.set(debugObject.portalColorEnd)
+})
+gltfLoader.load("portal2.glb", (gltf) => {
+   const bakedMesh = gltf.scene.children.find((child) => child.name === "baked")
+   const portalMesh = gltf.scene.children.find((x) => x.name === "portal")
+   const poleLightAMesh = gltf.scene.children.find(
+      (x) => x.name === "poleLightA"
+   )
+   const poleLightBMesh = gltf.scene.children.find(
+      (x) => x.name === "poleLightB"
+   )
+
+   poleLightAMesh.material = poleLightMaterial
+   poleLightBMesh.material = poleLightMaterial
+   portalMesh.material = portalMaterial
+   bakedMesh.material = bakedMaterial
+
+   scene.add(gltf.scene)
 })
 
 const fireFliesGeometry = new THREE.BufferGeometry()
@@ -85,7 +94,7 @@ const fireFliesCount = 30
 const positionArray = new Float32Array(fireFliesCount * 3)
 const scaleArray = new Float32Array(fireFliesCount)
 
-for(let i = 0; i < fireFliesCount; i++){
+for (let i = 0; i < fireFliesCount; i++) {
    positionArray[i * 3 + 0] = (Math.random() - 0.5) * 4
    positionArray[i * 3 + 1] = Math.random() * 1.5
    positionArray[i * 3 + 2] = (Math.random() - 0.5) * 4
@@ -93,30 +102,35 @@ for(let i = 0; i < fireFliesCount; i++){
    scaleArray[i] = Math.random()
 }
 
-fireFliesGeometry.setAttribute("position", new THREE.BufferAttribute(positionArray, 3))
-fireFliesGeometry.setAttribute("aScale", new THREE.BufferAttribute(positionArray, 1))
+fireFliesGeometry.setAttribute(
+   "position",
+   new THREE.BufferAttribute(positionArray, 3)
+)
+fireFliesGeometry.setAttribute(
+   "aScale",
+   new THREE.BufferAttribute(positionArray, 1)
+)
 
 const firefliesMaterial = new THREE.ShaderMaterial({
-   uniforms:{
+   uniforms: {
       uPixelRatio: {
-         value: Math.min(window.devicePixelRatio, 2)
+         value: Math.min(window.devicePixelRatio, 2),
       },
       uSize: {
-         value: 100
+         value: 100,
       },
       uTime: {
-         value: 0
-      }
+         value: 0,
+      },
    },
    vertexShader: firefliesVertexShader,
    fragmentShader: firefliesFragmentShader,
    transparent: true,
    blending: THREE.AdditiveBlending,
-   depthWrite: false
+   depthWrite: false,
 })
 
-gui
-   .add(firefliesMaterial.uniforms.uSize, "value")
+gui.add(firefliesMaterial.uniforms.uSize, "value")
    .min(0)
    .max(500)
    .step(1)
@@ -146,8 +160,10 @@ window.addEventListener("resize", () => {
    renderer.setSize(sizes.width, sizes.height)
    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
-   firefliesMaterial.uniforms.uPixelRatio.value = Math.min(window.devicePixelRatio, 2)
-   
+   firefliesMaterial.uniforms.uPixelRatio.value = Math.min(
+      window.devicePixelRatio,
+      2
+   )
 })
 
 /**
@@ -182,11 +198,9 @@ renderer.outputEncoding = THREE.sRGBEncoding
 
 debugObject.clearColor = "#201919"
 renderer.setClearColor(debugObject.clearColor)
-gui
-   .addColor(debugObject, "clearColor")
-   .onChange(()=>{
-      renderer.setClearColor(debugObject.clearColor)
-   })
+gui.addColor(debugObject, "clearColor").onChange(() => {
+   renderer.setClearColor(debugObject.clearColor)
+})
 
 /**
  * Animate
