@@ -69,14 +69,18 @@ gltfLoader.load(
 const fireFliesGeometry = new THREE.BufferGeometry()
 const fireFliesCount = 30
 const positionArray = new Float32Array(fireFliesCount * 3)
+const scaleArray = new Float32Array(fireFliesCount)
 
 for(let i = 0; i < fireFliesCount; i++){
    positionArray[i * 3 + 0] = (Math.random() - 0.5) * 4
    positionArray[i * 3 + 1] = Math.random() * 1.5
    positionArray[i * 3 + 2] = (Math.random() - 0.5) * 4
+
+   scaleArray[i] = Math.random()
 }
 
 fireFliesGeometry.setAttribute("position", new THREE.BufferAttribute(positionArray, 3))
+fireFliesGeometry.setAttribute("aScale", new THREE.BufferAttribute(positionArray, 1))
 
 const firefliesMaterial = new THREE.ShaderMaterial({
    uniforms:{
@@ -88,10 +92,16 @@ const firefliesMaterial = new THREE.ShaderMaterial({
       }
    },
    vertexShader: firefliesVertexShader,
-   fragmentShader: firefliesFragmentShader
+   fragmentShader: firefliesFragmentShader,
+   transparent: true
 })
 
-gui.add(fire)
+gui
+   .add(firefliesMaterial.uniforms.uSize, "value")
+   .min(0)
+   .max(500)
+   .step(1)
+   .name("firefliesSize")
 
 const fireflies = new THREE.Points(fireFliesGeometry, firefliesMaterial)
 scene.add(fireflies)
