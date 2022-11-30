@@ -50,8 +50,13 @@ const poleLightMaterial = new THREE.MeshBasicMaterial({
    color: 0xffffe5
 })
 const portalMaterial = new THREE.ShaderMaterial({
+   uniforms:{
+      uTime:{
+         value: 0
+      }
+   },
    vertexShader: portalVertexShader,
-   fragmentShader: portalFragmentShader
+   fragmentShader: portalFragmentShader,
 })
 gltfLoader.load(
    "portal2.glb", 
@@ -186,6 +191,7 @@ const tick = () => {
    const elapsedTime = clock.getElapsedTime()
 
    firefliesMaterial.uniforms.uTime.value = elapsedTime
+   portalMaterial.uniforms.uTime.value = elapsedTime
 
    // Update controls
    controls.update()
