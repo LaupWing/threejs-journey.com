@@ -89,11 +89,16 @@ const firefliesMaterial = new THREE.ShaderMaterial({
       },
       uSize: {
          value: 100
+      },
+      uTime: {
+         value: 0
       }
    },
    vertexShader: firefliesVertexShader,
    fragmentShader: firefliesFragmentShader,
-   transparent: true
+   transparent: true,
+   blending: THREE.AdditiveBlending,
+   depthWrite: false
 })
 
 gui
@@ -176,6 +181,8 @@ const clock = new THREE.Clock()
 
 const tick = () => {
    const elapsedTime = clock.getElapsedTime()
+
+   firefliesMaterial.uniforms.uTime.value = elapsedTime
 
    // Update controls
    controls.update()
