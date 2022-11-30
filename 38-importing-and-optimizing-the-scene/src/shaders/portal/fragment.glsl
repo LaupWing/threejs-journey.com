@@ -82,7 +82,8 @@ void main(){
 
    float strength = cnoise(vec3(displacedUv * 5.0, uTime * 0.2));
 
-   float outerGlow = distance(vUv, vec2(0.5));
+   float outerGlow = distance(vUv, vec2(0.5)) * 5.0 - 1.4;
+   strength += outerGlow;
 
    gl_FragColor = vec4(strength, strength, strength, 1.0);
 }
