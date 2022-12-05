@@ -1,4 +1,4 @@
-import { OrbitControls, PivotControls, TransformControls } from "@react-three/drei"
+import { Html, OrbitControls, PivotControls, TransformControls } from "@react-three/drei"
 import { useRef } from "react"
 
 export default function Experience() {
@@ -21,6 +21,7 @@ export default function Experience() {
             <mesh position-x={-2}>
                <sphereGeometry />
                <meshStandardMaterial color="orange" />
+               <Html wrapperClass="label" position={[1, 1, 0]}>Test</Html>
             </mesh>
          </PivotControls>
 
@@ -38,6 +39,7 @@ export default function Experience() {
             <planeGeometry />
             <meshStandardMaterial color="greenyellow" />
          </mesh>
+
       </>
    )
 }
