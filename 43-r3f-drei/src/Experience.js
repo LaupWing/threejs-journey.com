@@ -21,7 +21,15 @@ export default function Experience() {
             <mesh position-x={-2}>
                <sphereGeometry />
                <meshStandardMaterial color="orange" />
-               <Html wrapperClass="label" position={[1, 1, 0]}>Test</Html>
+               <Html 
+                  center 
+                  wrapperClass="label" 
+                  position={[1, 1, 0]}
+                  distanceFactor={8}
+                  occlude
+               >
+                  That's a sphere 👍
+               </Html>
             </mesh>
          </PivotControls>
 
