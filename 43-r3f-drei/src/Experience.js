@@ -3,6 +3,7 @@ import { useRef } from "react"
 
 export default function Experience() {
    const cube = useRef()
+   const sphere = useRef()
 
    return (
       <>
@@ -18,7 +19,10 @@ export default function Experience() {
             scale={100}
             fixed={true}
          >
-            <mesh position-x={-2}>
+            <mesh 
+               position-x={-2}
+               ref={sphere}
+            >
                <sphereGeometry />
                <meshStandardMaterial color="orange" />
                <Html 
@@ -26,7 +30,7 @@ export default function Experience() {
                   wrapperClass="label" 
                   position={[1, 1, 0]}
                   distanceFactor={8}
-                  occlude
+                  occlude={[cube, sphere]}
                >
                   That's a sphere 👍
                </Html>
