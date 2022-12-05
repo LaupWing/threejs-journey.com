@@ -7,7 +7,6 @@ const root = ReactDOM.createRoot(document.querySelector("#root"))
 
 root.render(
    <Canvas
-      orthographic
       camera={{
          fov: 45,
          near: 0.1,
