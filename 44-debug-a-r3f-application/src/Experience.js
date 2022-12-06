@@ -3,6 +3,10 @@ import { useControls } from "leva"
 import { Perf } from "r3f-perf"
 
 export default function Experience() {
+   const {perfVisible} = useControls({
+      perfVisible: true
+   })
+
    const {position, color, visible} = useControls("sphere",{
       position: {
          value: {
@@ -27,8 +31,8 @@ export default function Experience() {
 
    return (
       <>
-         <Perf />
-         
+         {perfVisible && <Perf position="top-left"/>}
+
          <OrbitControls makeDefault />
 
          <directionalLight position={[1, 2, 3]} intensity={1.5} />
