@@ -1,8 +1,9 @@
 import { OrbitControls } from "@react-three/drei"
 import { useControls } from "leva"
+import { Perf } from "r3f-perf"
 
 export default function Experience() {
-   const {position, color, visible} = useControls({
+   const {position, color, visible} = useControls("sphere",{
       position: {
          value: {
             x:-2,
@@ -15,8 +16,19 @@ export default function Experience() {
       visible: true
    })
 
+   const { scale } = useControls("cube", {
+      scale: {
+         value: 1.5,
+         step: 0.01,
+         min: 0,
+         max: 5
+      }
+   })
+
    return (
       <>
+         <Perf />
+         
          <OrbitControls makeDefault />
 
          <directionalLight position={[1, 2, 3]} intensity={1.5} />
@@ -27,7 +39,7 @@ export default function Experience() {
             <meshStandardMaterial color={color} />
          </mesh>
 
-         <mesh position-x={2} scale={1.5}>
+         <mesh position-x={2} scale={scale}>
             <boxGeometry />
             <meshStandardMaterial color="mediumpurple" />
          </mesh>
