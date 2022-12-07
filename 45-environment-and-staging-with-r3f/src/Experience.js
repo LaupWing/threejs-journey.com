@@ -1,8 +1,16 @@
 import { useFrame } from "@react-three/fiber"
-import { BakeShadows, OrbitControls, useHelper } from "@react-three/drei"
+import { OrbitControls, softShadows, useHelper } from "@react-three/drei"
 import { useRef } from "react"
 import { Perf } from "r3f-perf"
 import * as THREE from "three"
+
+softShadows({
+   frustum: 3.75,
+   sizes: 0.005,
+   near: 9.5,
+   samples: 17,
+   rings: 11
+})
 
 export default function Experience() {
    const cube = useRef()
@@ -16,7 +24,6 @@ export default function Experience() {
 
    return (
       <>
-         <BakeShadows/>
          <color args={["ivory"]} attach="background"/>
          <Perf position="top-left" />
 
