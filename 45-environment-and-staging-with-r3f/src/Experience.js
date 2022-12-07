@@ -1,5 +1,5 @@
 import { useFrame } from "@react-three/fiber"
-import { AccumulativeShadows, ContactShadows, OrbitControls, RandomizedLight, Sky, useHelper } from "@react-three/drei"
+import { AccumulativeShadows, ContactShadows, Environment, OrbitControls, RandomizedLight, Sky, useHelper } from "@react-three/drei"
 import { useRef } from "react"
 import { Perf } from "r3f-perf"
 import * as THREE from "three"
@@ -45,8 +45,27 @@ export default function Experience() {
       }
    })
 
+   const {envMapIntensity} = useControls("environment map", {
+      envMapIntensity: {
+         value: 1,
+         min: 0,
+         max: 12
+      }
+   })
+
    return (
       <>
+         <Environment 
+            background
+            files={ [
+                './environmentMaps/2/px.jpg',
+                './environmentMaps/2/nx.jpg',
+                './environmentMaps/2/py.jpg',
+                './environmentMaps/2/ny.jpg',
+                './environmentMaps/2/pz.jpg',
+                './environmentMaps/2/nz.jpg',
+            ] }
+         />
          <color args={["ivory"]} attach="background"/>
          <Perf position="top-left" />
 
@@ -61,8 +80,9 @@ export default function Experience() {
             blur={blur}
             frames={1}
          />
-         <directionalLight 
-            position={[1, 2, 3]} 
+         {/* <directionalLight 
+            castShadow
+            position={sunPosition} 
             intensity={1.5} 
             ref={directionalLight}
             shadow-mapSize={[ 1024, 1024 ]}
@@ -72,9 +92,9 @@ export default function Experience() {
             shadow-camera-right={2}
             shadow-camera-bottom={-2}
             shadow-camera-left={-2}
-         />
-         <ambientLight intensity={0.5} />
-         <Sky sunPosition={sunPosition}/>
+         /> */}
+         {/* <ambientLight intensity={0.5} /> */}
+         {/* <Sky sunPosition={sunPosition}/> */}
          {/* <AccumulativeShadows
             position={[0, -0.99, 0]}
             scale={10}
@@ -96,12 +116,12 @@ export default function Experience() {
 
          <mesh position-x={-2}>
             <sphereGeometry />
-            <meshStandardMaterial color="orange" />
+            <meshStandardMaterial envMapIntensity={envMapIntensity} color="orange" />
          </mesh>
 
          <mesh ref={cube} position-x={2} scale={1.5}>
             <boxGeometry />
-            <meshStandardMaterial color="mediumpurple" />
+            <meshStandardMaterial envMapIntensity={envMapIntensity} color="mediumpurple" />
          </mesh>
          <mesh 
             position-y={-1} 
@@ -109,7 +129,7 @@ export default function Experience() {
             scale={10}
          >
             <planeGeometry />
-            <meshStandardMaterial color="greenyellow" />
+            <meshStandardMaterial envMapIntensity={envMapIntensity} color="greenyellow" />
          </mesh>
       </>
    )
