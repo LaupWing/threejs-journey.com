@@ -58,6 +58,11 @@ export default function Experience() {
          <Environment 
             preset="sunset"
             resolution={32}
+            ground={{
+               height: 7,
+               radius: 28,
+               scale: 100
+            }}
          >
             {/* <color args={["#000000"]} attach="background"/> */}
             {/* <mesh scale={10} position-z={-4}>
