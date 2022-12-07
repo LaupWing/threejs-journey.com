@@ -44,7 +44,7 @@ export default function Experience() {
             shadow-camera-left={-2}
          />
          <ambientLight intensity={0.5} />
-         <AccumulativeShadows
+         {/* <AccumulativeShadows
             position={[0, -0.99, 0]}
             scale={10}
             color="#366d39"
@@ -61,7 +61,7 @@ export default function Experience() {
                position={[1,2,3]}
                bias={0.001}
             />
-         </AccumulativeShadows>
+         </AccumulativeShadows> */}
 
          <mesh position-x={-2}>
             <sphereGeometry />
