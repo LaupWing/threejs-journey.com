@@ -26,14 +26,14 @@ export default function Experience() {
    })
 
    const {color, opacity, blur} = useControls("contact shadows", {
-      color: "#000000",
+      color: "#1d8f75",
       opacity: {
-         value: 0.5,
+         value: 0.4,
          min: 0,
          max: 1
       },
       blur: {
-         value: 1,
+         value: 2.8,
          min: 0,
          max: 10
       }
@@ -53,6 +53,7 @@ export default function Experience() {
             color={color}
             opacity={opacity}
             blur={blur}
+            frames={1}
          />
          <directionalLight 
             position={[1, 2, 3]} 
