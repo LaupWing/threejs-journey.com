@@ -1,5 +1,5 @@
 import { useFrame } from "@react-three/fiber"
-import { OrbitControls, useHelper } from "@react-three/drei"
+import { BakeShadows, OrbitControls, useHelper } from "@react-three/drei"
 import { useRef } from "react"
 import { Perf } from "r3f-perf"
 import * as THREE from "three"
@@ -16,6 +16,7 @@ export default function Experience() {
 
    return (
       <>
+         <BakeShadows/>
          <color args={["ivory"]} attach="background"/>
          <Perf position="top-left" />
 
@@ -26,6 +27,13 @@ export default function Experience() {
             position={[1, 2, 3]} 
             intensity={1.5} 
             ref={directionalLight}
+            shadow-mapSize={[ 1024, 1024 ]}
+            shadow-camera-near={1}
+            shadow-camera-far={10}
+            shadow-camera-top={2}
+            shadow-camera-right={2}
+            shadow-camera-bottom={-2}
+            shadow-camera-left={-2}
          />
          <ambientLight intensity={0.5} />
 
