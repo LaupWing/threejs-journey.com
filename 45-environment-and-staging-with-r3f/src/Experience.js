@@ -1,5 +1,5 @@
 import { useFrame } from "@react-three/fiber"
-import { AccumulativeShadows, ContactShadows, OrbitControls, RandomizedLight, useHelper } from "@react-three/drei"
+import { AccumulativeShadows, ContactShadows, OrbitControls, RandomizedLight, Sky, useHelper } from "@react-three/drei"
 import { useRef } from "react"
 import { Perf } from "r3f-perf"
 import * as THREE from "three"
@@ -39,6 +39,12 @@ export default function Experience() {
       }
    })
 
+   const {sunPosition} = useControls("sky", {
+      sunPosition: {
+         value: [1, 2, 3]
+      }
+   })
+
    return (
       <>
          <color args={["ivory"]} attach="background"/>
@@ -68,6 +74,7 @@ export default function Experience() {
             shadow-camera-left={-2}
          />
          <ambientLight intensity={0.5} />
+         <Sky sunPosition={sunPosition}/>
          {/* <AccumulativeShadows
             position={[0, -0.99, 0]}
             scale={10}
