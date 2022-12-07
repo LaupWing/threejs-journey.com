@@ -1,5 +1,5 @@
 import { useFrame } from "@react-three/fiber"
-import { AccumulativeShadows, ContactShadows, Environment, OrbitControls, RandomizedLight, Sky, useHelper } from "@react-three/drei"
+import { AccumulativeShadows, ContactShadows, Environment, Lightformer, OrbitControls, RandomizedLight, Sky, useHelper } from "@react-three/drei"
 import { useRef } from "react"
 import { Perf } from "r3f-perf"
 import * as THREE from "three"
@@ -56,16 +56,22 @@ export default function Experience() {
    return (
       <>
          <Environment 
-            background
-            files={ [
-                './environmentMaps/2/px.jpg',
-                './environmentMaps/2/nx.jpg',
-                './environmentMaps/2/py.jpg',
-                './environmentMaps/2/ny.jpg',
-                './environmentMaps/2/pz.jpg',
-                './environmentMaps/2/nz.jpg',
-            ] }
-         />
+            preset="sunset"
+            resolution={32}
+         >
+            {/* <color args={["#000000"]} attach="background"/> */}
+            {/* <mesh scale={10} position-z={-4}>
+               <planeGeometry/>
+               <meshBasicMaterial color={[1, 0, 0]}/>
+            </mesh> */}
+            {/* <Lightformer 
+               position-z={-5} 
+               scale={10}
+               color="red"
+               intensity={10}
+               form="ring"
+            /> */}
+         </Environment>
          <color args={["ivory"]} attach="background"/>
          <Perf position="top-left" />
 
