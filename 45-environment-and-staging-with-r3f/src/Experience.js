@@ -1,5 +1,5 @@
 import { useFrame } from "@react-three/fiber"
-import { AccumulativeShadows, OrbitControls, RandomizedLight, useHelper } from "@react-three/drei"
+import { AccumulativeShadows, ContactShadows, OrbitControls, RandomizedLight, useHelper } from "@react-three/drei"
 import { useRef } from "react"
 import { Perf } from "r3f-perf"
 import * as THREE from "three"
@@ -30,7 +30,12 @@ export default function Experience() {
          <Perf position="top-left" />
 
          <OrbitControls makeDefault />
-
+         <ContactShadows
+            position={[0, -0.99, 0]}
+            scale={10}
+            resolution={512}
+            far={5}
+         />
          <directionalLight 
             position={[1, 2, 3]} 
             intensity={1.5} 
