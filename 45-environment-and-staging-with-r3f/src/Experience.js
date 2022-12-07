@@ -1,16 +1,16 @@
 import { useFrame } from "@react-three/fiber"
-import { OrbitControls, softShadows, useHelper } from "@react-three/drei"
+import { AccumulativeShadows, OrbitControls, RandomizedLight, useHelper } from "@react-three/drei"
 import { useRef } from "react"
 import { Perf } from "r3f-perf"
 import * as THREE from "three"
 
-softShadows({
-   frustum: 3.75,
-   sizes: 0.005,
-   near: 9.5,
-   samples: 17,
-   rings: 11
-})
+// softShadows({
+//    frustum: 3.75,
+//    sizes: 0.005,
+//    near: 9.5,
+//    samples: 17,
+//    rings: 11
+// })
 
 export default function Experience() {
    const cube = useRef()
@@ -30,7 +30,6 @@ export default function Experience() {
          <OrbitControls makeDefault />
 
          <directionalLight 
-            castShadow
             position={[1, 2, 3]} 
             intensity={1.5} 
             ref={directionalLight}
@@ -43,18 +42,36 @@ export default function Experience() {
             shadow-camera-left={-2}
          />
          <ambientLight intensity={0.5} />
+         <AccumulativeShadows
+            position={[0, -0.99, 0]}
+            scale={10}
+            color="#366d39"
+            opacity={0.8}
+         >
+            <RandomizedLight
+               amount={8}
+               radius={1}
+               ambient={0.5}
+               intensity={1}
+               position={[1,2,3]}
+               bias={0.001}
+            />
+         </AccumulativeShadows>
 
-         <mesh castShadow position-x={-2}>
+         <mesh position-x={-2}>
             <sphereGeometry />
             <meshStandardMaterial color="orange" />
          </mesh>
 
-         <mesh castShadow ref={cube} position-x={2} scale={1.5}>
+         <mesh ref={cube} position-x={2} scale={1.5}>
             <boxGeometry />
             <meshStandardMaterial color="mediumpurple" />
          </mesh>
-
-         <mesh receiveShadow position-y={-1} rotation-x={-Math.PI * 0.5} scale={10}>
+         <mesh 
+            position-y={-1} 
+            rotation-x={-Math.PI * 0.5} 
+            scale={10}
+         >
             <planeGeometry />
             <meshStandardMaterial color="greenyellow" />
          </mesh>
