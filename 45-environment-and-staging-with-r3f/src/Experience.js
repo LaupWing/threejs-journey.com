@@ -70,7 +70,7 @@ export default function Experience() {
 
    return (
       <>
-         <Environment 
+         {/* <Environment 
             preset="sunset"
             resolution={32}
             ground={{
@@ -78,7 +78,7 @@ export default function Experience() {
                radius: envMapRadius,
                scale: envMapScale
             }}
-         >
+         > */}
             {/* <color args={["#000000"]} attach="background"/> */}
             {/* <mesh scale={10} position-z={-4}>
                <planeGeometry/>
@@ -91,12 +91,12 @@ export default function Experience() {
                intensity={10}
                form="ring"
             /> */}
-         </Environment>
-         <color args={["ivory"]} attach="background"/>
+         {/* </Environment> */}
+         {/* <color args={["ivory"]} attach="background"/> */}
          <Perf position="top-left" />
 
          <OrbitControls makeDefault />
-         <ContactShadows
+         {/* <ContactShadows
             position={[0, 0, 0]}
             scale={10}
             resolution={512}
@@ -105,7 +105,7 @@ export default function Experience() {
             opacity={opacity}
             blur={blur}
             frames={1}
-         />
+         /> */}
          {/* <directionalLight 
             castShadow
             position={sunPosition} 
@@ -139,8 +139,18 @@ export default function Experience() {
                bias={0.001}
             />
          </AccumulativeShadows> */}
+         <Stage>
+            <mesh position-x={-2} position-y={1}>
+               <sphereGeometry />
+               <meshStandardMaterial envMapIntensity={envMapIntensity} color="orange" />
+            </mesh>
 
-         <mesh position-x={-2} position-y={1}>
+            <mesh ref={cube} position-x={2} position-y={1} scale={1.5}>
+               <boxGeometry />
+               <meshStandardMaterial envMapIntensity={envMapIntensity} color="mediumpurple" />
+            </mesh>
+         </Stage>
+         {/* <mesh position-x={-2} position-y={1}>
             <sphereGeometry />
             <meshStandardMaterial envMapIntensity={envMapIntensity} color="orange" />
          </mesh>
@@ -148,7 +158,7 @@ export default function Experience() {
          <mesh ref={cube} position-x={2} position-y={1} scale={1.5}>
             <boxGeometry />
             <meshStandardMaterial envMapIntensity={envMapIntensity} color="mediumpurple" />
-         </mesh>
+         </mesh> */}
          {/* <mesh 
             position-y={0} 
             rotation-x={-Math.PI * 0.5} 
