@@ -139,7 +139,14 @@ export default function Experience() {
                bias={0.001}
             />
          </AccumulativeShadows> */}
-         <Stage>
+         <Stage 
+            contactShadow={{
+               opacity: 0.2,
+               blur: 3
+            }}
+            environment="sunset"
+            preset="portrait"
+         >
             <mesh position-x={-2} position-y={1}>
                <sphereGeometry />
                <meshStandardMaterial envMapIntensity={envMapIntensity} color="orange" />
