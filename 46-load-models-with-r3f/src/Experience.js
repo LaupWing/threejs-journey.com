@@ -7,7 +7,7 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader"
 export default function Experience() {
    const model = useLoader(
       GLTFLoader, 
-      "./hamburger.glb",
+      "./FlightHelmet/glTF/FlightHelmet.gltf",
       (loader) => {
          console.log(loader)
          const dracoLoader = new DRACOLoader()
@@ -38,7 +38,8 @@ export default function Experience() {
 
          <primitive
             object={model.scene}
-            scale={0.35}
+            scale={5}
+            position-y={-1}
          />
       </>
    )
