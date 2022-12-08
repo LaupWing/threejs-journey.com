@@ -6,8 +6,11 @@ const Fox = () => {
    const fox = useGLTF("./Fox/glTF/Fox.gltf")
    const animations = useAnimations(fox.animations, fox.scene)
    useEffect(() => {
-      const action = animations.actions.Run
-      action.play()
+      animations.actions.Run.play()
+      setTimeout(()=>{
+         animations.actions.Walk.play()
+         animations.actions.Walk.crossFadeFrom(animations.actions,Run, 1)
+      }, 2000)
    }, [])
    return (
       <primitive 
