@@ -1,7 +1,7 @@
 import { OrbitControls } from "@react-three/drei"
 import { Perf } from "r3f-perf"
 import { Suspense } from "react"
-import Model from "./Model"
+import Hamburger from "./Hamburger"
 import Placeholder from "./Placeholder"
 
 export default function Experience() {
@@ -32,7 +32,7 @@ export default function Experience() {
                <Placeholder position-y={0.5} scale={[2, 3, 2]}/>
             }
          >
-            <Model />
+            <Hamburger scale={0.35} />
          </Suspense>
       </>
    )
