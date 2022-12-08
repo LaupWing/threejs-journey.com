@@ -6,7 +6,7 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader"
 const Model = () => {
    const model = useLoader(
       GLTFLoader, 
-      "./FlightHelmet/glTF/FlightHelmet.gltf",
+      "./hamburger.glb",
       (loader) => {
          console.log(loader)
          const dracoLoader = new DRACOLoader()
@@ -17,8 +17,7 @@ const Model = () => {
    return (
       <primitive 
          object={model.scene} 
-         scale={5} 
-         position-y={-1} 
+         scale={0.35} 
       />)
 }
 
