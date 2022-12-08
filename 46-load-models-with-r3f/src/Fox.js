@@ -1,10 +1,18 @@
 import { useAnimations, useGLTF } from "@react-three/drei"
+import { useControls } from "leva"
 import React from "react"
 import { useEffect } from "react"
 
 const Fox = () => {
    const fox = useGLTF("./Fox/glTF/Fox.gltf")
    const animations = useAnimations(fox.animations, fox.scene)
+
+   const { animationName } = useControls({
+      animationName: {
+         options: animations.names
+      }
+   })
+
    useEffect(() => {
       animations.actions.Run.play()
       setTimeout(()=>{
