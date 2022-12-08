@@ -1,19 +1,8 @@
-import { useLoader } from "@react-three/fiber"
+import { useGLTF } from "@react-three/drei"
 import React from "react"
-import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader"
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader"
 
 const Model = () => {
-   const model = useLoader(
-      GLTFLoader, 
-      "./hamburger.glb",
-      (loader) => {
-         console.log(loader)
-         const dracoLoader = new DRACOLoader()
-         dracoLoader.setDecoderPath("./draco/")
-         loader.setDRACOLoader(dracoLoader)
-      }   
-   )
+   const model = useGLTF("./hamburger.glb")
    return (
       <primitive 
          object={model.scene} 
