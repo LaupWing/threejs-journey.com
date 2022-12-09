@@ -1,15 +1,19 @@
-import { OrbitControls } from '@react-three/drei'
+import { OrbitControls, useGLTF, useTexture } from "@react-three/drei"
 
-export default function Experience()
-{
-    return <>
+export default function Experience() {
+   const { nodes } = useGLTF("./model/portal.glb")
 
-        <OrbitControls makeDefault />
+   const bakedTexture = useTexture("./model/baked.jpg")
+   bakedTexture.flipY = false
+   
+   return (
+      <>
+         <color args={["#201919"]} attach={"background"}/>
+         <OrbitControls makeDefault />
 
-        <mesh scale={ 1.5 }>
-            <boxGeometry />
-            <meshNormalMaterial />
-        </mesh>
-
-    </>
+         <mesh geometry={nodes.baked.geometry}> 
+            <meshBasicMaterial map={bakedTexture}/>
+         </mesh>
+      </>
+   )
 }
