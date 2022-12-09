@@ -1,4 +1,4 @@
-import { OrbitControls, Text3D } from "@react-three/drei"
+import { Center, OrbitControls, Text3D } from "@react-three/drei"
 import { Perf } from "r3f-perf"
 
 export default function Experience() {
@@ -7,11 +7,22 @@ export default function Experience() {
          <Perf position="top-left" />
 
          <OrbitControls makeDefault />
-         
-         <Text3D font={"./fonts/helvetiker_regular.typeface.json"}>
-            HELLO R3F
-            <meshNormalMaterial />
-         </Text3D>
+         <Center>
+            <Text3D 
+               font={"./fonts/helvetiker_regular.typeface.json"}
+               size={0.75}
+               height={0.2}
+               curveSegments={12}
+               bevelEnabled
+               bevelSegments={5}
+               bevelSize={0.02}
+               bevelOffset={0}
+               bevelThickness={0.02}
+            >
+               HELLO R3F
+               <meshNormalMaterial />
+            </Text3D>
+         </Center>
       </>
    )
 }
