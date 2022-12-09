@@ -14,12 +14,9 @@ const Fox = () => {
    })
 
    useEffect(() => {
-      animations.actions.Run.play()
-      setTimeout(()=>{
-         animations.actions.Walk.play()
-         animations.actions.Walk.crossFadeFrom(animations.actions,Run, 1)
-      }, 2000)
-   }, [])
+      animations.actions[animationName].play()
+   }, [animationName])
+   
    return (
       <primitive 
          object={fox.scene}
