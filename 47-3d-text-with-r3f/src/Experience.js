@@ -17,6 +17,7 @@ export default function Experience() {
 
          <OrbitControls makeDefault />
          <torusGeometry ref={setTorusGeometry} args={[1, 0.6, 16, 32]} />
+         <meshMatcapMaterial matcap={matcapTexture} />
          <Center>
             <Text3D
                font={"./fonts/helvetiker_regular.typeface.json"}
@@ -50,7 +51,7 @@ export default function Experience() {
                geometry={torusGeometry}
             >
                
-               <meshMatcapMaterial matcap={matcapTexture} />
+               
             </mesh>
          ))}
       </>
