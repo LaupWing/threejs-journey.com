@@ -1,4 +1,5 @@
 import { Center, OrbitControls, Sparkles, useGLTF, useTexture } from "@react-three/drei"
+import portalVertexShader from "./shaders/portal/vertex.js"
 
 export default function Experience() {
    const { nodes } = useGLTF("./model/portal.glb")
@@ -33,7 +34,7 @@ export default function Experience() {
                position={ nodes.portalLight.position }
                rotation={ nodes.portalLight.rotation }
             >
-
+               <shaderMaterial />
             </mesh>
 
             <Sparkles 
