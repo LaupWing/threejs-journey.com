@@ -11,6 +11,7 @@ import {
 import { useControls } from "leva"
 import { BlendFunction, GlitchMode } from "postprocessing"
 import { Perf } from "r3f-perf"
+import Drunk from "./Drunk"
 
 export default function Experience() {
    // const ssrProps = useControls("SSR Effect", {
@@ -73,6 +74,7 @@ export default function Experience() {
                bokehScale={6}
             /> */}
             {/* <SSR {...ssrProps} /> */}
+            <Drunk />
          </EffectComposer>
          <Perf position="top-left" />
 
