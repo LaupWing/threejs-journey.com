@@ -72,7 +72,7 @@ export default function Experience() {
             scale={10}
          >
             <planeGeometry />
-            <meshStandardMaterial color="greenyellow" />
+            <meshStandardMaterial color="greenyellow" metalness={0} roughness={0}/>
          </mesh>
       </>
    )
