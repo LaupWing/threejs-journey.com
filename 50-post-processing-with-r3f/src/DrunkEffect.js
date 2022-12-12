@@ -1,4 +1,5 @@
 import { Effect } from "postprocessing"
+import { Uniform } from "three"
 
 const fragmentShader = /* glsl */ `
    void mainUv(inout vec2 uv){
@@ -19,8 +20,8 @@ export default class DrunkEffect extends Effect {
          fragmentShader, 
          {
             uniforms: new Map([
-               ["frequency", { value: frequency }],
-               ["amplitude", { value: amplitude }],
+               ["frequency", new Uniform(frequency)],
+               ["amplitude", new Uniform(amplitude)],
             ])
          }
       )
