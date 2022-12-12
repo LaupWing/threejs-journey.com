@@ -1,12 +1,13 @@
 import React from "react"
+import DrunkEffect from "./DrunkEffect"
 
-const Drunk = () => {
+const Drunk = (props) => {
+   const effect = new DrunkEffect(props)
+
    return (
-      <mesh>
-         <boxGeometry 
-            
-         />
-      </mesh>
+      <primitive
+         object={effect}
+      />
    )
 }
 

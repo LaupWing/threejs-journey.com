@@ -74,7 +74,10 @@ export default function Experience() {
                bokehScale={6}
             /> */}
             {/* <SSR {...ssrProps} /> */}
-            <Drunk />
+            <Drunk 
+               frequency={ 2 }
+               aplitude={ 0.1 }
+            />
          </EffectComposer>
          <Perf position="top-left" />
 
