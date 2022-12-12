@@ -78,8 +78,8 @@ export default function Experience() {
             {/* <SSR {...ssrProps} /> */}
             <Drunk 
                ref={drunkRef}
-               frequency={ 2 }
-               aplitude={ 0.1 }
+               frequency={ 20 }
+               amplitude={ 0.1 }
             />
          </EffectComposer>
          <Perf position="top-left" />
