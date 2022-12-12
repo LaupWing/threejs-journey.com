@@ -11,6 +11,7 @@ import {
 import { useControls } from "leva"
 import { BlendFunction, GlitchMode } from "postprocessing"
 import { Perf } from "r3f-perf"
+import { useRef } from "react"
 import Drunk from "./Drunk"
 
 export default function Experience() {
@@ -44,6 +45,7 @@ export default function Experience() {
    //    thickness: { value: 10, min: 0, max: 10 },
    //    ior: { value: 1.45, min: 0, max: 2 },
    // })
+   const drunkRef = useRef()
 
    return (
       <>
@@ -75,6 +77,7 @@ export default function Experience() {
             /> */}
             {/* <SSR {...ssrProps} /> */}
             <Drunk 
+               ref={drunkRef}
                frequency={ 2 }
                aplitude={ 0.1 }
             />

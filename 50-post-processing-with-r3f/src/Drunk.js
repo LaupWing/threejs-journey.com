@@ -1,14 +1,16 @@
 import React from "react"
+import { forwardRef } from "react"
 import DrunkEffect from "./DrunkEffect"
 
-const Drunk = (props) => {
-   const effect = new DrunkEffect(props)
+const Drunk = (props, ref) => {
+   const effect = new DrunkEffect()
 
    return (
       <primitive
+         ref={ref}
          object={effect}
       />
    )
 }
 
-export default Drunk
+export default forwardRef(Drunk)
