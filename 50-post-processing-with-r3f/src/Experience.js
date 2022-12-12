@@ -72,7 +72,7 @@ export default function Experience() {
                focusDistance={0.025}
                bokehScale={6}
             /> */}
-            <SSR />
+            <SSR {...ssrProps} />
          </EffectComposer>
          <Perf position="top-left" />
 
