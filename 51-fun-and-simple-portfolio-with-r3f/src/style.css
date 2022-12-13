@@ -12,3 +12,11 @@ body,
 canvas {
    touch-action: none;
 }
+
+.htmlScreen iframe {
+   width: 1024;
+   height: 670px;
+   border: none;
+   border-radius: 20px;
+   background: #000000;
+}
