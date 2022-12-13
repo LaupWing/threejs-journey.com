@@ -1,8 +1,24 @@
 import { OrbitControls } from "@react-three/drei"
 import { Debug, Physics, RigidBody } from "@react-three/rapier"
 import { Perf } from "r3f-perf"
+import { useRef } from "react"
 
 export default function Experience() {
+   const cube = useRef()
+
+   const cubeJump = () => {
+      cube.current.applyImpluse({
+         x: 0,
+         y: 5,
+         z: 0
+      })
+      cube.current.applyTorque({
+         x: 0,
+         y: 1,
+         z:0
+      })
+   }
+
    return (
       <>
          <Perf position="top-left" />
@@ -15,18 +31,20 @@ export default function Experience() {
          <Physics>
             <Debug/>
             <RigidBody colliders="ball">
-               <mesh castShadow position={[0, 4, 0]}>
+               <mesh castShadow position={[-1.5, 2, 0]}>
                   <sphereGeometry />
                   <meshStandardMaterial color="orange" />
                </mesh>
             </RigidBody>
-            <RigidBody colliders="hull">
+            <RigidBody 
+               position={[1.5, 2, 0]}
+               ref={cube}
+            >
                <mesh 
-                  castShadow 
-                  position={[0, 1, 0]} 
-                  rotation={[Math.PI * 0.1, 0, 0]}
+                  castShadow
+                  onClick={cubeJump}
                >
-                  <torusGeometry args={[1, 0.5, 16, 32]} />
+                  <boxGeometry />
                   <meshStandardMaterial color={"mediumpurple"}/>
                </mesh>
             </RigidBody>
