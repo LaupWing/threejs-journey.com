@@ -1,5 +1,5 @@
 import { OrbitControls } from "@react-three/drei"
-import { Debug, Physics, RigidBody } from "@react-three/rapier"
+import { CuboidCollider, Debug, Physics, RigidBody } from "@react-three/rapier"
 import { Perf } from "r3f-perf"
 import { useRef } from "react"
 
@@ -7,9 +7,10 @@ export default function Experience() {
    const cube = useRef()
 
    const cubeJump = () => {
+      const mass = cube.current.mass()
       cube.current.applyImpluse({
          x: 0,
-         y: 5,
+         y: mass,
          z: 0
       })
       cube.current.applyTorque({
@@ -40,7 +41,9 @@ export default function Experience() {
                position={[1.5, 2, 0]}
                ref={cube}
                gravityScale={1}
-               restitution={1}
+               restitution={0}
+               friction={0}
+               colliders={ false }
             >
                <mesh 
                   castShadow
@@ -49,6 +52,7 @@ export default function Experience() {
                   <boxGeometry />
                   <meshStandardMaterial color={"mediumpurple"}/>
                </mesh>
+               <CuboidCollider mass={0.5} args={[0.5, 0.5, 0.5]}/>
             </RigidBody>
             <RigidBody type="fixed">
                <mesh receiveShadow position-y={-1.25}>
