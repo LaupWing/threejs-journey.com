@@ -1,4 +1,4 @@
-import { ContactShadows, Environment, Float, Html, OrbitControls, PresentationControls, useGLTF } from "@react-three/drei"
+import { ContactShadows, Environment, Float, Html, OrbitControls, PresentationControls, Text, useGLTF } from "@react-three/drei"
 
 export default function Experience() {
    const computer = useGLTF("https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/macbook/model.gltf")
@@ -45,6 +45,15 @@ export default function Experience() {
                   </Html>
                </primitive>
             </Float>
+            <Text
+               font="./bangers-v20-latin-regular.woff"
+               fontSize={1}
+               position={[2, 0.75, 0.75]}
+               rotation-y={-1.25}
+               maxWidth={2}
+            >
+               BRUN SIMON
+            </Text>
          </PresentationControls>
          <ContactShadows 
             position-y={-1.4}
