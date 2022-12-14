@@ -16,6 +16,15 @@ export default function Experience() {
       const quaternionRotation = new THREE.Quaternion()
       quaternionRotation.setFromEuler(eulerRotation)
       twister.current.setNextKinematicRotation(quaternionRotation)
+
+      const angle = time * 0.5
+      const x = Math.cos(angle)
+      const z = Math.sin(angle)
+      twister.current.setNextKinematicTranslation({
+         x,
+         z,
+         y: -0.8
+      })
    })
 
    const cubeJump = () => {
