@@ -4,6 +4,7 @@ import { Perf } from "r3f-perf"
 import { useRef } from "react"
 
 export default function Experience() {
+   const twister = useRef()
    const cube = useRef()
 
    const cubeJump = () => {
@@ -58,6 +59,16 @@ export default function Experience() {
                <mesh receiveShadow position-y={-1.25}>
                   <boxGeometry args={[10, 0.5, 10]} />
                   <meshStandardMaterial color="greenyellow" />
+               </mesh>
+            </RigidBody>
+            <RigidBody
+               position={[0, -0.8, 0]}
+               friction={0}
+               type="kinematicPosition"
+            >
+               <mesh castShadow scale={[0.4, 0.4, 3]}>
+                  <boxGeometry />
+                  <meshStandardMaterial color={"red"}/>
                </mesh>
             </RigidBody>
          </Physics>
