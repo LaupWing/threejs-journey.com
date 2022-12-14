@@ -1,11 +1,18 @@
 import { OrbitControls } from "@react-three/drei"
+import { useFrame } from "@react-three/fiber"
 import { CuboidCollider, Debug, Physics, RigidBody } from "@react-three/rapier"
 import { Perf } from "r3f-perf"
 import { useRef } from "react"
 
+
 export default function Experience() {
    const twister = useRef()
    const cube = useRef()
+
+   useFrame((state)=>{
+      const time = state.clock.getElapsedTime()
+
+   })
 
    const cubeJump = () => {
       const mass = cube.current.mass()
@@ -65,6 +72,7 @@ export default function Experience() {
                position={[0, -0.8, 0]}
                friction={0}
                type="kinematicPosition"
+               ref={twister}
             >
                <mesh castShadow scale={[0.4, 0.4, 3]}>
                   <boxGeometry />
