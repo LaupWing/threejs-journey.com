@@ -1,6 +1,12 @@
 import { OrbitControls, useGLTF } from "@react-three/drei"
 import { useFrame } from "@react-three/fiber"
-import { CuboidCollider, CylinderCollider, Debug, Physics, RigidBody } from "@react-three/rapier"
+import {
+   CuboidCollider,
+   CylinderCollider,
+   Debug,
+   Physics,
+   RigidBody,
+} from "@react-three/rapier"
 import { Perf } from "r3f-perf"
 import { useState } from "react"
 import { useRef } from "react"
@@ -9,10 +15,10 @@ import * as THREE from "three"
 export default function Experience() {
    const twister = useRef()
    const cube = useRef()
-   const [hitSound] = useState(()=> new Audio("./hit.mp3"))
+   const [hitSound] = useState(() => new Audio("./hit.mp3"))
    const hamburger = useGLTF("./hamburger.glb")
 
-   useFrame((state)=>{
+   useFrame((state) => {
       const time = state.clock.getElapsedTime()
 
       const eulerRotation = new THREE.Euler(0, time * 3, 0)
@@ -26,7 +32,7 @@ export default function Experience() {
       twister.current.setNextKinematicTranslation({
          x,
          z,
-         y: -0.8
+         y: -0.8,
       })
    })
 
@@ -35,12 +41,12 @@ export default function Experience() {
       cube.current.applyImpluse({
          x: 0,
          y: mass,
-         z: 0
+         z: 0,
       })
       cube.current.applyTorque({
          x: 0,
          y: 1,
-         z:0
+         z: 0,
       })
    }
 
@@ -60,30 +66,27 @@ export default function Experience() {
          <ambientLight intensity={0.5} />
 
          <Physics gravity={[0, -9.81, 0]}>
-            <Debug/>
+            <Debug />
             <RigidBody colliders="ball">
                <mesh castShadow position={[-1.5, 2, 0]}>
                   <sphereGeometry />
                   <meshStandardMaterial color="orange" />
                </mesh>
             </RigidBody>
-            <RigidBody 
+            <RigidBody
                position={[1.5, 2, 0]}
                ref={cube}
                gravityScale={1}
                restitution={0}
                friction={0}
-               colliders={ false }
+               colliders={false}
                onCollisionEnter={collisionEnter}
             >
-               <mesh 
-                  castShadow
-                  onClick={cubeJump}
-               >
+               <mesh castShadow onClick={cubeJump}>
                   <boxGeometry />
-                  <meshStandardMaterial color={"mediumpurple"}/>
+                  <meshStandardMaterial color={"mediumpurple"} />
                </mesh>
-               <CuboidCollider mass={0.5} args={[0.5, 0.5, 0.5]}/>
+               <CuboidCollider mass={0.5} args={[0.5, 0.5, 0.5]} />
             </RigidBody>
             <RigidBody type="fixed">
                <mesh receiveShadow position-y={-1.25}>
@@ -99,22 +102,20 @@ export default function Experience() {
             >
                <mesh castShadow scale={[0.4, 0.4, 3]}>
                   <boxGeometry />
-                  <meshStandardMaterial color={"red"}/>
+                  <meshStandardMaterial color={"red"} />
                </mesh>
             </RigidBody>
-            <RigidBody 
-               colliders={"hull"} 
-               position={[0, 4, 0]}
-            >
-               <primitive
-                  object={hamburger.scene}
-                  scale={0.25}
-               />
+            <RigidBody colliders={"hull"} position={[0, 4, 0]}>
+               <primitive object={hamburger.scene} scale={0.25} />
                {/* <CylinderCollider args={[0.5, 1.15]}/> */}
             </RigidBody>
-            
+            <RigidBody type="fixed">
+               <CuboidCollider args={[5, 2, 0.5]} position={[0, 1, 5.5]} />
+               <CuboidCollider args={[5, 2, 0.5]} position={[0, 1, -5.5]} />
+               <CuboidCollider args={[0.5, 2, 5]} position={[5.5, 1, 0]} />
+               <CuboidCollider args={[0.5, 2, 5]} position={[-5.5, 1, 0]} />
+            </RigidBody>
          </Physics>
-
       </>
    )
 }
