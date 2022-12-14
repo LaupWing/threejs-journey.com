@@ -1,4 +1,4 @@
-import { OrbitControls } from "@react-three/drei"
+import { OrbitControls, useGLTF } from "@react-three/drei"
 import { useFrame } from "@react-three/fiber"
 import { CuboidCollider, Debug, Physics, RigidBody } from "@react-three/rapier"
 import { Perf } from "r3f-perf"
@@ -10,6 +10,7 @@ export default function Experience() {
    const twister = useRef()
    const cube = useRef()
    const [hitSound] = useState(()=> new Audio("./hit.mp3"))
+   const hamburger = useGLTF("./hamburger.glb")
 
    useFrame((state)=>{
       const time = state.clock.getElapsedTime()
@@ -101,7 +102,15 @@ export default function Experience() {
                   <meshStandardMaterial color={"red"}/>
                </mesh>
             </RigidBody>
+            <RigidBody position={[0, 4, 0]}>
+               <primitive
+                  object={hamburger.scene}
+                  scale={0.25}
+               />
+            </RigidBody>
+            
          </Physics>
+
       </>
    )
 }
