@@ -1,6 +1,6 @@
 import { OrbitControls, useGLTF } from "@react-three/drei"
 import { useFrame } from "@react-three/fiber"
-import { CuboidCollider, Debug, Physics, RigidBody } from "@react-three/rapier"
+import { CuboidCollider, CylinderCollider, Debug, Physics, RigidBody } from "@react-three/rapier"
 import { Perf } from "r3f-perf"
 import { useState } from "react"
 import { useRef } from "react"
@@ -102,11 +102,15 @@ export default function Experience() {
                   <meshStandardMaterial color={"red"}/>
                </mesh>
             </RigidBody>
-            <RigidBody position={[0, 4, 0]}>
+            <RigidBody 
+               colliders={"hull"} 
+               position={[0, 4, 0]}
+            >
                <primitive
                   object={hamburger.scene}
                   scale={0.25}
                />
+               {/* <CylinderCollider args={[0.5, 1.15]}/> */}
             </RigidBody>
             
          </Physics>
