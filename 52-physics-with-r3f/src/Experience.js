@@ -4,6 +4,7 @@ import {
    CuboidCollider,
    CylinderCollider,
    Debug,
+   InstancedRigidBodies,
    Physics,
    RigidBody,
 } from "@react-three/rapier"
@@ -131,11 +132,12 @@ export default function Experience() {
                <CuboidCollider args={[0.5, 2, 5]} position={[5.5, 1, 0]} />
                <CuboidCollider args={[0.5, 2, 5]} position={[-5.5, 1, 0]} />
             </RigidBody>
-
-            <instancedMesh ref={cubes} castShadow receiveShadow args={[null, null, cubesCount]}>
-               <boxGeometry />
-               <meshStandardMaterial color={"tomato"}/>
-            </instancedMesh>
+            <InstancedRigidBodies>
+               <instancedMesh ref={cubes} castShadow receiveShadow args={[null, null, cubesCount]}>
+                  <boxGeometry />
+                  <meshStandardMaterial color={"tomato"}/>
+               </instancedMesh>
+            </InstancedRigidBodies>
          </Physics>
       </>
    )
