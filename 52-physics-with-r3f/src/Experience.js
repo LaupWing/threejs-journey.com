@@ -9,6 +9,7 @@ import {
 } from "@react-three/rapier"
 import { Perf } from "r3f-perf"
 import { useState } from "react"
+import { useEffect } from "react"
 import { useRef } from "react"
 import * as THREE from "three"
 
@@ -17,6 +18,21 @@ export default function Experience() {
    const cube = useRef()
    const [hitSound] = useState(() => new Audio("./hit.mp3"))
    const hamburger = useGLTF("./hamburger.glb")
+
+   const cubesCount = 3
+   const cubes = useRef() 
+
+   useEffect(()=>{
+      for(let i = 0; i < cubesCount; i++){
+         const matrix = new THREE.Matrix4()
+         matrix.compose(
+            new THREE.Vector3(i * 2, 0, 0),
+            new THREE.Quaternion(),
+            new THREE.Vector3(1, 1, 1),
+         )
+         cubes.current.setMatrix(i, matrix)
+      }
+   },[])
 
    useFrame((state) => {
       const time = state.clock.getElapsedTime()
@@ -115,6 +131,11 @@ export default function Experience() {
                <CuboidCollider args={[0.5, 2, 5]} position={[5.5, 1, 0]} />
                <CuboidCollider args={[0.5, 2, 5]} position={[-5.5, 1, 0]} />
             </RigidBody>
+
+            <instancedMesh ref={cubes} castShadow receiveShadow args={[null, null, cubesCount]}>
+               <boxGeometry />
+               <meshStandardMaterial color={"tomato"}/>
+            </instancedMesh>
          </Physics>
       </>
    )
