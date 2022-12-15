@@ -21,7 +21,7 @@ export function BlockStart({
    return (
       <group position={position}>
          <mesh 
-            position={[0, 0, 0]}
+            position={[0, -0.1, 0]}
             material={floor1Material}
             receiveShadow
             geometry={boxGeometry}
@@ -83,7 +83,7 @@ export function BlockSpinner({
       <group position={position}>
          <mesh 
             geometry={boxGeometry}
-            position={[0, 0, 0]}
+            position={[0, -0.1, 0]}
             material={floor2Material}
             scale={[4, 0.2, 4]}
             receiveShadow
@@ -129,7 +129,7 @@ export function BlockAxe({
       <group position={position}>
          <mesh 
             geometry={boxGeometry}
-            position={[0, 0, 0]}
+            position={[0, -0.1, 0]}
             material={floor2Material}
             scale={[4, 0.2, 4]}
             receiveShadow
@@ -144,7 +144,7 @@ export function BlockAxe({
             <mesh 
                geometry={boxGeometry}
                material={obstacleMaterial}
-               scale={[3.5, 0.3, 0.3]}
+               scale={[1.5, 1.5, 0.3]}
                castShadow
                receiveShadow
             />
@@ -175,7 +175,7 @@ export function BlockLimbo({
       <group position={position}>
          <mesh 
             geometry={boxGeometry}
-            position={[0, 0, 0]}
+            position={[0, -0.1, 0]}
             material={floor2Material}
             scale={[4, 0.2, 4]}
             receiveShadow
