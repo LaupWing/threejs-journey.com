@@ -14,7 +14,7 @@ const obstacleMaterial = new THREE.MeshStandardMaterial({ color: 'orangered' })
 const wallMaterial = new THREE.MeshStandardMaterial({ color: 'slategrey' })
 
 
-function BlockStart({
+export function BlockStart({
    position = [0, 0, 0]
 }) {
    return (
@@ -30,7 +30,7 @@ function BlockStart({
    )
 }
 
-function BlockEnd({
+export function BlockEnd({
    position = [0, 0, 0]
 }) {
    const hamburger = useGLTF("./hamburger.glb")
@@ -64,7 +64,7 @@ function BlockEnd({
    )
 }
 
-function BlockSpinner({
+export function BlockSpinner({
    position = [0, 0, 0]
 }) {
    const obstacle = useRef()
@@ -106,7 +106,7 @@ function BlockSpinner({
    )
 }
 
-function BlockAxe({
+export function BlockAxe({
    position = [0, 0, 0]
 }) {
    const obstacle = useRef()
@@ -152,7 +152,7 @@ function BlockAxe({
    )
 }
 
-function BlockLimbo({
+export function BlockLimbo({
    position = [0, 0, 0]
 }) {
    const obstacle = useRef()
@@ -198,7 +198,7 @@ function BlockLimbo({
    )
 }
 
-export default function Level({ 
+export function Level({ 
    count = 5, 
    types = [BlockSpinner, BlockAxe, BlockLimbo] 
 }) {
