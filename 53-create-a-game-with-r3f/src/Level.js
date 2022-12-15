@@ -43,7 +43,7 @@ export function BlockEnd({
    return (
       <group position={position}>
          <mesh 
-            position={[0, -0.1, 0]}
+            position={[0, 0, 0]}
             material={floor1Material}
             receiveShadow
             geometry={boxGeometry}
@@ -83,7 +83,7 @@ export function BlockSpinner({
       <group position={position}>
          <mesh 
             geometry={boxGeometry}
-            position={[0, -0.1, 0]}
+            position={[0, 0, 0]}
             material={floor2Material}
             scale={[4, 0.2, 4]}
             receiveShadow
@@ -129,7 +129,7 @@ export function BlockAxe({
       <group position={position}>
          <mesh 
             geometry={boxGeometry}
-            position={[0, -0.1, 0]}
+            position={[0, 0, 0]}
             material={floor2Material}
             scale={[4, 0.2, 4]}
             receiveShadow
@@ -175,7 +175,7 @@ export function BlockLimbo({
       <group position={position}>
          <mesh 
             geometry={boxGeometry}
-            position={[0, -0.1, 0]}
+            position={[0, 0, 0]}
             material={floor2Material}
             scale={[4, 0.2, 4]}
             receiveShadow
@@ -203,8 +203,6 @@ export function Level({
    count = 5, 
    types = [BlockSpinner, BlockAxe, BlockLimbo] 
 }) {
-   const count = 5
-   const types = [BlockSpinner, BlockAxe, BlockLimbo]
 
    const blocks = useMemo(()=>{
       const blocks = []
@@ -220,7 +218,8 @@ export function Level({
    return (
       <>
          <BlockStart position={[0, 0, 0]}/>
-         {blocks.map((Block, i) => <Block key={i} position={[0, 0, index * 4]}/>)}
+         {blocks.map((Block, i) => <Block key={i} position={[0, 0, -(i + 1) * 4]}/>)}
+         <BlockEnd position={[0, 0, -(count + 1) * 4]}/>
       </>
    )
 }
