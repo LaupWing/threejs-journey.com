@@ -19,6 +19,22 @@ function BlockStart({
    return (
       <group position={position}>
          <mesh 
+            position={[0, 0, 0]}
+            material={floor1Material}
+            receiveShadow
+            geometry={boxGeometry}
+            scale={[4, 0.2, 4]}
+         />
+      </group>
+   )
+}
+
+function BlockEnd({
+   position = [0, 0, 0]
+}) {
+   return (
+      <group position={position}>
+         <mesh 
             position={[0, -0.1, 0]}
             material={floor1Material}
             receiveShadow
@@ -29,7 +45,7 @@ function BlockStart({
    )
 }
 
-function BlockLimbo({
+function BlockSpinner({
    position = [0, 0, 0]
 }) {
    const obstacle = useRef()
@@ -75,14 +91,18 @@ function BlockAxe({
    position = [0, 0, 0]
 }) {
    const obstacle = useRef()
-   const [speed] = useState(()=> (Math.random() + 0.2) * (Math.random() < 0.5 ? -1 : 1))
+   const [timeOffset] = useState(()=> Math.random() * Math.PI * 2)
 
    useFrame((state)=>{
       const time = state.clock.getElapsedTime()
 
-      const rotation = new THREE.Quaternion()
-      rotation.setFromEuler(new THREE.Euler(0, time * speed, 0))
-      obstacle.current.setNextKinematicRotation(rotation)
+      const x = Math.sin(time * timeOffset) * 1.25
+
+      obstacle.current.setNextKinematicTranslation({
+         x: x + position[0],
+         y: position[1] + 0.75,
+         z: position[2]
+      })
    })
 
    return (
@@ -113,7 +133,7 @@ function BlockAxe({
    )
 }
 
-function BlockSpinner({
+function BlockLimbo({
    position = [0, 0, 0]
 }) {
    const obstacle = useRef()
@@ -162,9 +182,11 @@ function BlockSpinner({
 export default function Level() {
    return (
       <>
-         <BlockStart position={[0, 0, 8]}/>
-         <BlockSpinner position={[0, 0, 4]}/>
-         <BlockLimbo position={[0, 0, 0]}/>
+         <BlockStart position={[0, 0, 16]}/>
+         <BlockSpinner position={[0, 0, 12]}/>
+         <BlockLimbo position={[0, 0, 8]}/>
+         <BlockAxe position={[0, 0, 4]}/>
+         <BlockEnd position={[0, 0, 0]}/>
       </>
    )
 }
