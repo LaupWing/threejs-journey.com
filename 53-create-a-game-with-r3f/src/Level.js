@@ -35,6 +35,10 @@ function BlockEnd({
 }) {
    const hamburger = useGLTF("./hamburger.glb")
 
+   hamburger.scene.children.forEach((mesh)=>{
+      mesh.castShadow = true
+   })
+
    return (
       <group position={position}>
          <mesh 
@@ -194,14 +198,16 @@ function BlockLimbo({
    )
 }
 
-export default function Level() {
+export default function Level({ 
+   count = 5, 
+   types = [BlockSpinner, BlockAxe, BlockLimbo] 
+}) {
+   const count = 5
+   const types = [BlockSpinner, BlockAxe, BlockLimbo]
+
    return (
       <>
-         <BlockStart position={[0, 0, 16]}/>
-         <BlockSpinner position={[0, 0, 12]}/>
-         <BlockLimbo position={[0, 0, 8]}/>
-         <BlockAxe position={[0, 0, 4]}/>
-         <BlockEnd position={[0, 0, 0]}/>
+         <BlockStart position={[0, 0, 0]}/>
       </>
    )
 }
