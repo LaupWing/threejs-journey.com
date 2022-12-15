@@ -1,6 +1,7 @@
 import { useGLTF } from "@react-three/drei"
 import { useFrame } from "@react-three/fiber"
 import { RigidBody } from "@react-three/rapier"
+import { useMemo } from "react"
 import { useRef, useState } from "react"
 import * as THREE from "three"
 
@@ -205,9 +206,21 @@ export function Level({
    const count = 5
    const types = [BlockSpinner, BlockAxe, BlockLimbo]
 
+   const blocks = useMemo(()=>{
+      const blocks = []
+
+      for(let i = 0; i < count; i++){
+         const type = types[Math.floor(Math.random() * types.length)]
+         blocks.push(type)
+      }
+
+      return blocks
+   }, [ count, types])
+
    return (
       <>
          <BlockStart position={[0, 0, 0]}/>
+         {blocks.map((Block, i) => <Block key={i} position={[0, 0, index * 4]}/>)}
       </>
    )
 }
