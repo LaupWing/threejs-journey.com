@@ -20,13 +20,12 @@ const Player = () => {
       const ray = new rapier.Ray(origin, direction)
       const rapierWorld = world.raw()
       const hit = rapierWorld.castRay(ray, 10, true)
-      console.log(hit.tio)
-      if(hit.tio < 0.15){
-      body.current.applyImpulse({
-         x: 0,
-         y: 0.5,
-         z: 0
-      })
+      if(hit.toi < 0.15){
+         body.current.applyImpulse({
+            x: 0,
+            y: 0.5,
+            z: 0
+         })
       }
 
    }
