@@ -2,13 +2,33 @@ import { useKeyboardControls } from "@react-three/drei"
 import { useFrame } from "@react-three/fiber"
 import { RigidBody } from "@react-three/rapier"
 import React, { useRef } from "react"
+import { useEffect } from "react"
 
 const Player = () => {
    const [subscribeKeys, getKeys] = useKeyboardControls()
    const body = useRef()
 
+   const jump = () => {
+      body.current.applyImpulse({
+         x: 0,
+         y: 0.5,
+         z: 0
+      })
+   }
+
+   useEffect(()=>{
+      subscribeKeys(
+         (state) => state.jump,
+         (value) => { 
+            if(value){
+               jump()
+            }
+         }
+      )
+   },[])
    useFrame((state, delta)=>{
       const {forward, backward, leftward, rightward} = getKeys()
+
 
       const impulse = {
          x:0,
@@ -43,8 +63,8 @@ const Player = () => {
          torque.z += torqueStrength
       }
 
-      body.current.applyImpluse(impulse)
-      body.current.applyTorqueImplse(torque)
+      body.current.applyImpulse(impulse)
+      body.current.applyTorqueImpulse(torque)
    })
 
    return (
