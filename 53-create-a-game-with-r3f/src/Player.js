@@ -28,10 +28,19 @@ const Player = () => {
          impulse.z -= impulseStrength
          torque.x -= torqueStrength
       }
-      
-      if(forward){
-         impulse.z -= impulseStrength
-         torque.x -= torqueStrength
+
+      if(rightward){
+         impulse.x += impulseStrength
+         torque.z -= torqueStrength
+      }
+
+      if(backward){
+         impulse.z += impulseStrength
+         torque.x += torqueStrength
+      }
+      if(leftward){
+         impulse.x -= impulseStrength
+         torque.z += torqueStrength
       }
 
       body.current.applyImpluse(impulse)
