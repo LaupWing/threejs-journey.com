@@ -3,6 +3,7 @@ import { useFrame } from "@react-three/fiber"
 import { RigidBody, useRapier } from "@react-three/rapier"
 import React, { useRef } from "react"
 import { useEffect } from "react"
+import * as THREE from "three"
 
 const Player = () => {
    const [subscribeKeys, getKeys] = useKeyboardControls()
@@ -28,6 +29,16 @@ const Player = () => {
          })
       }
 
+      /**
+       * Camera
+       */
+      const bodyPosition = body.current.translation()
+      const cameraPosition = new THREE.Vector3()
+      cameraPosition.copy(bodyPosition)
+      cameraPosition.z += 0.25
+      cameraPosition.y += 0.65
+
+      const cameraTarget = new THREE
    }
 
    useEffect(()=>{
