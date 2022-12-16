@@ -20,19 +20,19 @@ const Player = () => {
       const ray = new rapier.Ray(origin, direction)
       const rapierWorld = world.raw()
       const hit = rapierWorld.castRay(ray, 10, true)
-
+      console.log(hit.tio)
       if(hit.tio < 0.15){
-         body.current.applyImpulse({
-            x: 0,
-            y: 0.5,
-            z: 0
-         })
+      body.current.applyImpulse({
+         x: 0,
+         y: 0.5,
+         z: 0
+      })
       }
 
    }
 
    useEffect(()=>{
-      subscribeKeys(
+      const unsubscribeJump = subscribeKeys(
          (state) => state.jump,
          (value) => { 
             if(value){
@@ -40,6 +40,10 @@ const Player = () => {
             }
          }
       )
+
+      return () => {
+         unsubscribeJump()
+      }
    },[])
    useFrame((state, delta)=>{
       const {forward, backward, leftward, rightward} = getKeys()
