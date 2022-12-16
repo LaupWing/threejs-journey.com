@@ -28,17 +28,6 @@ const Player = () => {
             z: 0
          })
       }
-
-      /**
-       * Camera
-       */
-      const bodyPosition = body.current.translation()
-      const cameraPosition = new THREE.Vector3()
-      cameraPosition.copy(bodyPosition)
-      cameraPosition.z += 0.25
-      cameraPosition.y += 0.65
-
-      const cameraTarget = new THREE
    }
 
    useEffect(()=>{
@@ -94,6 +83,23 @@ const Player = () => {
 
       body.current.applyImpulse(impulse)
       body.current.applyTorqueImpulse(torque)
+
+      
+      /**
+       * Camera
+       */
+      const bodyPosition = body.current.translation()
+      const cameraPosition = new THREE.Vector3()
+      cameraPosition.copy(bodyPosition)
+      cameraPosition.z += 2.25
+      cameraPosition.y += 0.65
+
+      const cameraTarget = new THREE.Vector3()
+      cameraTarget.copy(bodyPosition)
+      cameraTarget.y += 0.25
+
+      state.camera.position.copy(cameraPosition)
+      state.camera.lookAt(cameraTarget)
    })
 
    return (
