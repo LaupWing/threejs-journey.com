@@ -6,19 +6,34 @@ export default create((set)=>{
       blocksCount: 3,
       phase: "ready",
       start: () =>{
-         set(() => ({
-            phase: "playing"
-         }))
+         set((state) => {
+            if(state.phase === "playing"){
+               return {}
+            }
+            return {
+               phase: "playing"
+            }
+         })
       },
       restart: () =>{
-         set(() => ({
-            phase: "ready"
-         }))
+         set((state) => {
+            if(state.phase === "ready"){
+               return {}
+            }
+            return {
+               phase: "ready"
+            }
+         })
       },
       end: () =>{
-         set(() => ({
-            phase: "ended"
-         }))
+         set((state) => {
+            if(state.ended === "ended"){
+               return {}
+            }
+            return {
+               phase: "ended"
+            }
+         })
       },
    }
 })
