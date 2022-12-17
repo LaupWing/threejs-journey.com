@@ -5,6 +5,7 @@ export default create(subscribeWithSelector((set)=>{
 
    return {
       blocksCount: 3,
+      blocksSeed: 0,
       startTime: 0,
       endTime: 0,
       phase: "ready",
@@ -25,7 +26,8 @@ export default create(subscribeWithSelector((set)=>{
                return {}
             }
             return {
-               phase: "ready"
+               phase: "ready",
+               blocksSeed: Math.random()
             }
          })
       },
