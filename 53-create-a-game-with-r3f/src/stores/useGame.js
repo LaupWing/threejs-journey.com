@@ -1,8 +1,14 @@
 import create from "zustand"
 
-export default create(()=>{
+export default create((set)=>{
 
    return {
-      blocksCount: 3
+      blocksCount: 3,
+      phase: "ready",
+      start: () =>{
+         set(() => ({
+            phase: "playing"
+         }))
+      }
    }
 })
