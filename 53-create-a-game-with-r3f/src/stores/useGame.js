@@ -9,6 +9,16 @@ export default create((set)=>{
          set(() => ({
             phase: "playing"
          }))
-      }
+      },
+      restart: () =>{
+         set(() => ({
+            phase: "ready"
+         }))
+      },
+      end: () =>{
+         set(() => ({
+            phase: "ended"
+         }))
+      },
    }
 })
