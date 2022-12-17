@@ -1,4 +1,4 @@
-import { useGLTF } from "@react-three/drei"
+import { Float, Text, useGLTF } from "@react-three/drei"
 import { useFrame } from "@react-three/fiber"
 import { CuboidCollider, RigidBody } from "@react-three/rapier"
 import { useMemo } from "react"
@@ -9,10 +9,10 @@ THREE.ColorManagement.legacyMode = false
 
 const boxGeometry = new THREE.BoxGeometry(1, 1, 1)
 
-const floor1Material = new THREE.MeshStandardMaterial({ color: 'limegreen' })
-const floor2Material = new THREE.MeshStandardMaterial({ color: 'greenyellow' })
-const obstacleMaterial = new THREE.MeshStandardMaterial({ color: 'orangered' })
-const wallMaterial = new THREE.MeshStandardMaterial({ color: 'slategrey' })
+const floor1Material = new THREE.MeshStandardMaterial({ color: 'limegreen', metalness: 0, roughness: 0 })
+const floor2Material = new THREE.MeshStandardMaterial({ color: 'greenyellow', metalness: 0, roughness: 0 })
+const obstacleMaterial = new THREE.MeshStandardMaterial({ color: 'orangered', metalness: 0, roughness: 1 })
+const wallMaterial = new THREE.MeshStandardMaterial({ color: 'slategrey', metalness: 0, roughness: 0 })
 
 
 export function BlockStart({
@@ -20,6 +20,23 @@ export function BlockStart({
 }) {
    return (
       <group position={position}>
+         <Float
+            floatIntensity={0.25}
+            rotationIntensity={0.25}
+         >
+            <Text 
+               scale={4}
+               font="./bebas-neue-v9-latin-regular.woff"
+               maxWidth={0.25}
+               lineHeight={0.75}
+               textAlign={"right"}
+               position={[0.75, 0.65, 0]}
+               rotation-y={-0.25}
+            >
+               Marble race
+               <meshBasicMaterial toneMapped={false}/>
+            </Text>
+         </Float>
          <mesh 
             position={[0, -0.1, 0]}
             material={floor1Material}
@@ -42,6 +59,18 @@ export function BlockEnd({
 
    return (
       <group position={position}>
+         <Text 
+            scale={8}
+            font="./bebas-neue-v9-latin-regular.woff"
+            maxWidth={0.25}
+            lineHeight={0.75}
+            textAlign={"right"}
+            position={[0, 2.25, 2]}
+            rotation-y={-0.25}
+         >
+            FINISH
+            <meshBasicMaterial toneMapped={false}/>
+         </Text>
          <mesh 
             position={[0, 0, 0]}
             material={floor1Material}

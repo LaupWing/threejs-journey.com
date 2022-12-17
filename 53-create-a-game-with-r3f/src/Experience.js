@@ -1,4 +1,5 @@
 import { Debug, Physics } from "@react-three/rapier"
+import Effect from "./Effect.js"
 import {Level} from "./Level.js"
 import Lights from "./Lights.js"
 import Player from "./Player.js"
@@ -9,12 +10,14 @@ export default function Experience() {
    const blocksSeed = useGame((state) => state.blocksSeed)
    return (
       <>
+         <color args={["#bdedfc"]} attach="background"/>
          <Physics>
             {/* <Debug /> */}
             <Lights />
             <Level count={blocksCount} seed={blocksSeed}/>
             <Player />
          </Physics>
+         <Effect/>
       </>
    )
 }
