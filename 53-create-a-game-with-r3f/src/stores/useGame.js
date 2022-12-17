@@ -5,6 +5,8 @@ export default create(subscribeWithSelector((set)=>{
 
    return {
       blocksCount: 3,
+      startTime: 0,
+      endTime: 0,
       phase: "ready",
       start: () =>{
          set((state) => {
@@ -12,7 +14,8 @@ export default create(subscribeWithSelector((set)=>{
                return {}
             }
             return {
-               phase: "playing"
+               phase: "playing",
+               startTime: Date.now()
             }
          })
       },
