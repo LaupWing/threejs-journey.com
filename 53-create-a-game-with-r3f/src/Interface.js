@@ -1,8 +1,12 @@
 import { useKeyboardControls } from "@react-three/drei"
+import { addEffect } from "@react-three/fiber"
 import React from "react"
+import { useEffect } from "react"
+import { useRef } from "react"
 import useGame from "./stores/useGame"
 
 const Interface = () => {
+   const time = useRef()
    const restart = useGame( state => state.restart)
    const phase = useGame( state => state.phase)
 
@@ -12,9 +16,33 @@ const Interface = () => {
    const rightward = useKeyboardControls((state) => state.rightward)
    const jump = useKeyboardControls((state) => state.jump)
 
+   useEffect(()=>{
+      const unsubscribeEffect = addEffect(()=>{
+         const state = useGame.getState()
+
+         let elapsedTime = 0
+
+         if(state.phase === "playing"){
+            elapsedTime = Date.now() - state.startTime
+         }else if(state.phase === "ended"){
+            elapsedTime = state.endTime = state.startTime
+         }
+
+         elapsedTime /= 1000
+         elapsedTime = elapsedTime.toFixed(2)
+
+         if(time.current){
+            time.current.textContent = elapsedTime
+         }
+      })
+      return () =>{
+         unsubscribeEffect()
+      }
+   },[])
+
    return (
       <div className="interface">
-         <div className="time">0.00</div>
+         <div className="time" ref={time}>0.00</div>
          {phase === "ended" && (
             <div 
                className="restart" 

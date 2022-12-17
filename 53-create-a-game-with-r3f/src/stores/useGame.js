@@ -35,7 +35,8 @@ export default create(subscribeWithSelector((set)=>{
                return {}
             }
             return {
-               phase: "ended"
+               phase: "ended",
+               endTime: Date.now()
             }
          })
       },
