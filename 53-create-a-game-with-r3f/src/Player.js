@@ -15,6 +15,9 @@ const Player = () => {
    const [smoothedCameraTarget] = useState(()=> new THREE.Vector3())
 
    const start = useGame((state) => state.start)
+   const end = useGame((state) => state.end)
+   const restart = useGame((state) => state.restart)
+   const blocksCount = useGame((state) => state.blocksCount)
 
    const jump = () => {
       const origin = body.current.translation()
@@ -116,6 +119,13 @@ const Player = () => {
 
       state.camera.position.copy(smoothedCameraPosition)
       state.camera.lookAt(smoothedCameraTarget)
+
+      if(bodyPosition.z < -(blocksCount * 4 + 2)){
+         end()
+      }
+      if(bodyPosition < -4){
+         restart()
+      }
    })
 
    return (
